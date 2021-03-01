@@ -8,11 +8,11 @@ description: Mainly about coding, also my hobbys.
 url: "https://bingsu-kun.github.io/"
 baseurl: "https://bingsu-kun.github.io/"
 twitter_username: 
-default_img: ./_data/anvil.jpg
+default_img: https://bingsu-kun.github.io/images/anvil.jpg
 
 # Profile settings
 name: Hephai (JangHoon Lee)
-profile_img: ./_data/anvil.jpg
+profile_img: https://bingsu-kun.github.io/images/anvil.jpg
 profile: Interested in backend dev, cloud engineering, blockchain. Usually do camping, fishing, cooking, exercising on holiday. And also enjoy editing videos that I took this hobbys.
 social:
   github: https://github.com/bingsu-kun

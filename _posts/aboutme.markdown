@@ -6,11 +6,11 @@ categories:
   - Hephai
 description:
 image: 
-image-sm: ./_data/anvil.png
+image-sm: https://bingsu-kun.github.io/images/anvil.png
 ---
 
 <figure>
-	![profile image](./_data/profile.jpeg "It's me")
+	![profile image](https://bingsu-kun.github.io/images/profile.jpeg "It's me")
 </figure>
 
 #### About me
