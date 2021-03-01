@@ -4,16 +4,16 @@ permalink: /:year/:month/:day/:title/
 google_analytics: 
 
 title: HEPHAI's devlog
-description: 
+description: Mainly about coding, also my hobbys.
 url: "https://bingsu-kun.github.io/"
-baseurl: ""
+baseurl: "https://bingsu-kun.github.io/"
 twitter_username: 
-default_img: 
+default_img: ./_data/anvil.jpg
 
 # Profile settings
-name: Hephai
+name: Hephai (JangHoon Lee)
 profile_img: ./_data/anvil.jpg
-profile: 
+profile: Interested in backend dev, cloud engineering, blockchain. Usually do camping, fishing, cooking, exercising on holiday. And also enjoy editing videos that I took this hobbys.
 social:
   github: https://github.com/bingsu-kun
 
