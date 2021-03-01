@@ -3,7 +3,7 @@ email: icetime963@gmail.com
 permalink: /:year/:month/:day/:title/
 google_analytics: 
 
-title: HEPHAI
+title: HEPHAI's devlog
 description: 
 url: "https://bingsu-kun.github.io/"
 baseurl: ""
@@ -11,8 +11,8 @@ twitter_username:
 default_img: 
 
 # Profile settings
-name: HepHai
-profile_img: 
+name: Hephai
+profile_img: ./_data/anvil.jpg
 profile: 
 social:
   github: https://github.com/bingsu-kun
