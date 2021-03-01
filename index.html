@@ -5,8 +5,8 @@ layout: default
   <div>
 
     {% for post in paginator.posts %}
-      <figure class="absolute-bg preview__img" style="background-image: https://bingsu-kun.github.io/images//Blacksmith.png"></figure>
-    {% endfor %}
+      <figure class="absolute-bg preview__img" style="background-image: url('{{ post.image-me }}');"></figure>
+    {% endfor %} 
     
     <div class="previews__container">
       <span>Welcome to</span>
