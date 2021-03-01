@@ -1,21 +1,21 @@
 # Site/SEO settings
-email: 
+email: icetime963@gmail.com
 permalink: /:year/:month/:day/:title/
 google_analytics: 
 
-title: Trophy
+title: HEPHAI
 description: 
-url: ""
+url: "https://bingsu-kun.github.io/"
 baseurl: ""
 twitter_username: 
 default_img: 
 
 # Profile settings
-name: 
+name: HepHai
 profile_img: 
 profile: 
 social:
-  github: 
+  github: https://github.com/bingsu-kun
 
 # Build settings
 markdown: kramdown
