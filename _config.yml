@@ -8,11 +8,11 @@ description: Mainly about coding, also my hobbys.
 url: "https://bingsu-kun.github.io"
 baseurl: ""
 twitter_username: 
-default_img: "https://user-images.githubusercontent.com/57391343/109517333-7a709080-7aec-11eb-8ead-6edbce8b9b74.png"
+default_img: "https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png"
 
 # Profile settings
 name: Hephai (JangHoon Lee)
-profile_img: "https://user-images.githubusercontent.com/57391343/109517333-7a709080-7aec-11eb-8ead-6edbce8b9b74.png"
+profile_img: "https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png"
 profile: Interested in backend dev, cloud engineering, blockchain. Usually do camping, fishing, cooking, exercising on holiday. And also enjoy editing videos that I took this hobbys.
 social:
   github: https://github.com/bingsu-kun

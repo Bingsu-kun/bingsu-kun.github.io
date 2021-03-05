@@ -7,11 +7,11 @@ categories:
 description:
 image: https://user-images.githubusercontent.com/57391343/109521050-3a131180-7af0-11eb-969a-0c35c4db346e.jpg
 image-sm: https://user-images.githubusercontent.com/57391343/109521050-3a131180-7af0-11eb-969a-0c35c4db346e.jpg
-image-me: https://user-images.githubusercontent.com/57391343/109517333-7a709080-7aec-11eb-8ead-6edbce8b9b74.png
+image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png
 ---
 
 <center>
-<img id="se_object_16146119104829970" src="https://blogfiles.pstatic.net/MjAyMTAzMDJfNDYg/MDAxNjE0NjExOTEwMzU5.I3QrY4e27ScLps9z5_XXxkzGGnUW2uC6UmoZ67SpJJgg.9sYzqwEg9WmYsfH92gaL_I7bVeVjweANLmkjy2uBpcQg.JPEG.icetime96/profile.jpeg" alt="profile" title="It's me">
+<img id="se_object_16146119104829970" src="https://res.cloudinary.com/danhdvla9/image/upload/v1614694316/profile_qjdzia.jpg" alt="profile" title="It's me">
 </center>
 
 <br>
