@@ -5,13 +5,13 @@ date: 2021-03-01
 categories:
   - Hephai
 description:
-image: https://user-images.githubusercontent.com/57391343/109521050-3a131180-7af0-11eb-969a-0c35c4db346e.jpg
-image-sm: https://user-images.githubusercontent.com/57391343/109521050-3a131180-7af0-11eb-969a-0c35c4db346e.jpg
+image: https://res.cloudinary.com/danhdvla9/image/upload/v1615614662/Thumbnails/anvil_xecild.jpg
+image-sm: https://res.cloudinary.com/danhdvla9/image/upload/v1615614662/Thumbnails/anvil_xecild.jpg
 image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png
 ---
 
 <center>
-<img id="se_object_16146119104829970" src="https://res.cloudinary.com/danhdvla9/image/upload/v1614694316/profile_qjdzia.jpg" alt="profile" title="It's me">
+<img id="se_object_16146119104829970" src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614668/Thumbnails/profile_ogfa9f.jpg" alt="profile" title="It's me">
 </center>
 
 <br>
@@ -44,7 +44,9 @@ image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmi
 	<li>영상 편집</li>
 </ul>
 
-장점이자 단점 : 한 가지 일에 너무 심취하는 것.
+Strong Point : 언제나 전체의 입장이 되어서 가장 올바른 해답을 찾으려 노력함.
+
+Weak Point : 한 가지 일에 너무 심취할 경우 다른 일을 잘 보지 못함.
 
 <br>
 <br>
@@ -64,7 +66,10 @@ CapStone Project로 Android App 개발 도중, Google Firebase를 이용하다�
 이후 Spring boot / Docker / K8s / Node.js / Hyperledger fabric 등을 공부하고 있다. <br>
 
 개발을 매우 잘하는 개발자도 되고 싶지만, 그보다는 어떠한 팀에도 어울리는 "물" 같은 개발자가 되고 싶다. <br>
-어떤 팀에도 잘 섞여들고, 어떤 정보도 잘 녹이고, 어떤 사람들에게나 친근하고 꼭 필요한 개발자가 되는 것이 목표이다.
+어떤 팀에도 잘 섞여들고, 어떤 정보도 잘 녹이고, 어떤 사람들에게나 친근하고 꼭 필요한 개발자가 되는 것이 목표이다. <br>
+
+개발은 "불"같은 열정으로, 협업은 "물"같은 유연함으로. <br> 
+불과 물을 이용해 최고의 명작을 만들어내는 대장장이와 같이 개발하는 것이 내가 추구하는 개발자의 이미지이다.<br>
 
 <br>
 <br>
@@ -157,11 +162,6 @@ ___
 	<li>Github : bingsu-kun@github.com</li>
 </ul>
 
-<br>
-<br>
-
->*"가장 큰 정보는 무심코 주고받는 대화 속에 있다."*
->*- 앤드류 그로브*
 
 
 

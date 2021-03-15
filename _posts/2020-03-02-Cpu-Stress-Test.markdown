@@ -5,8 +5,8 @@ date: 2021-03-03
 categories:
   - Back-End-Study
 description:
-image: https://res.cloudinary.com/danhdvla9/image/upload/v1614694356/cpu_ncib23.jpg
-image-sm: https://res.cloudinary.com/danhdvla9/image/upload/v1614694356/cpu_ncib23.jpg
+image: https://res.cloudinary.com/danhdvla9/image/upload/v1615614663/Thumbnails/cpu_cieppp.jpg
+image-sm: https://res.cloudinary.com/danhdvla9/image/upload/v1615614663/Thumbnails/cpu_cieppp.jpg
 image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png
 ---
 
@@ -83,6 +83,7 @@ hash가 무엇인지 궁금하다면?
 
 <br> 
 
+'''java
 	import org.springframework.web.bind.annotation.PathVariable;
 	import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RestController;
@@ -117,11 +118,12 @@ hash가 무엇인지 궁금하다면?
 		    return myHash;
 		}
 	}
+'''
 
 <br>
 
 참조 : https://github.com/lleellee0/cpu-bound-application <br>
---추가사항 : application.properties 파일에서 server.port 를 80으로 설정해줘야 한다. <br>
+--추가사항 : 충돌 방지를 위해 application.properties 파일에서 server.port 를 80으로 설정해줘야 한다. <br>
 
 <br>
 
@@ -141,11 +143,13 @@ JDK8이 아닌 다른 버전을 쓸 경우 DataTypeConverter를 찾지 못하는
 
 나는 11로 하고 있었기 때문에 해당 패키지가 제외되어있던 상태라 의존성을 추가해주어야 했다. 
 
+'''xml
 	<dependency>
 		<groupId>javax.xml.bind</groupId>
 		<artifactId>jaxb-api</artifactId>
 		<version>2.3.1</version>
 	</dependency>
+'''
 
 <br>
 
