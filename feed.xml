@@ -1,30 +1,593 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>HEPHAI's devlog</title>
+    <description>Mainly about coding, also my hobbys.</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 16 Mar 2021 18:07:50 +0900</pubDate>
+    <lastBuildDate>Tue, 16 Mar 2021 18:07:50 +0900</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>Cpu Stress Test -2</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;목차&quot;&gt;목차&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Artillery 설치&lt;/li&gt;
+	&lt;li&gt;Artillery를 사용해서 CPU Stress Test&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;artillery-설치&quot;&gt;Artillery 설치&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘은 Artillery를 사용해서 우리가 만든 웹서버가 얼마나 많은 트래픽을 소화해낼 수 있는지 테스트해보았다.&lt;/p&gt;
+
+&lt;p&gt;내가 수많은 테스트 툴 중에서 Artillery를 선택한 이유는 다음 두 가지이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Http, websocket 프로토콜 지원&lt;/li&gt;
+  &lt;li&gt;시각화가 잘 되어 있어 한눈에 보기 편한 리포트 페이지 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;특히 리포트 페이지는 처음 열어보았을 때 너무 깔끔해서 놀랐을 정도.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://artillery.io/docs/guides/overview/why-artillery.html&quot;&gt;더 자세한 Artillery에 대한 정보&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;구글 번역을 이용할 경우 artillery가 “포병”으로 해석되서 나오니 주의.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;node.js , npm 설치&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Artillery를 설치하기 위해서는 node.js와 npm이 필수이다. 각각 아래의 명령어를 입력해서 설치.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	sudo apt install npm
+	sudo apt install nodejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Artillery 설치&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;다음으로 &lt;a href=&quot;https://artillery.io/docs/guides/getting-started/installing-artillery.html&quot;&gt;Artillery 공식 문서&lt;/a&gt; 를 참조하여 Artillery를 설치하자.&lt;/p&gt;
+
+&lt;p&gt;공식 문서에서는 -g (전역 설치) 옵션과 함께 1.6 버전을 설치하지만 나는 조금 다르게 설치하였다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	sudo npm install -D artillery@latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;프로세스가 끝나면 설치가 완료되었는지 artillery dino 명령을 사용해서 확인하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614778/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-03-01_nyfkpd.png&quot; alt=&quot;귀여운 공룡&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;artillery를-사용해서-cpu-stress-test&quot;&gt;Artillery를 사용해서 CPU Stress Test&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;지금부터는 Artillery를 본격적으로 사용하기 위해 VSCode를 사용하였다.&lt;/p&gt;
+
+&lt;p&gt;우선 open folder로 artillery 관련 산출물을 관리하기 위한 디렉토리를 하나 생성.&lt;/p&gt;
+
+&lt;p&gt;new file로 어떻게 테스트를 진행할지 구성하는 artillery-cpu-test.yaml 파일을 생성.&lt;/p&gt;
+
+&lt;p&gt;다음으로 &lt;a href=&quot;https://artillery.io/docs/guides/getting-started/installing-artillery.html&quot;&gt;Artillery 공식 문서&lt;/a&gt; 에서 core-concept 탭에 가서 맨 아래있는 기본 yaml 템플릿을 전부 복사 후 artillery-cpu-test.yaml에 붙여넣기 하고, 약간의 수정을 거쳤다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614780/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-25-53_plikpn.png&quot; alt=&quot;yaml 파일&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;수정 한 이유는 hash/{input} api를 통해 get 명령만 사용할 것 이므로 나머지는 전부 날렸다. (물론 중요한 두 부분은 빼고)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;address : 웹 서버 주소 (클라우드 외부 IP)&lt;/li&gt;
+  &lt;li&gt;durability : 지속시간&lt;/li&gt;
+  &lt;li&gt;?? : 지속시간동안 1초마다 트래픽 증가 수치&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;준비가 끝났으니 웹 서버를 켜주고, 아래 명령을 입력하여 테스트를 시작하자.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	artillery run --output report.json artillery-cpu-test.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614781/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-18_u0r4ft.png&quot; alt=&quot;테스트 중...&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;테스트가 끝나고나면 왼쪽에 지정해준 이름대로 json 파일이 생성된다. 나는 report.json으로 했으니 테스트가 잘 끝났음을 보여준다.&lt;/p&gt;
+
+&lt;p&gt;하지만 json 파일 만으로는 테스트가 어땠는지 파악하기 어려우니 아래 명령어를 입력해서 리포트 페이지를 열었다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	artillery report report.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614782/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-55_hpzhuh.png&quot; alt=&quot;리포트페이지&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이와같이 깔끔하게 테스트 결과를 시각화해준다. 보아하니 서버가 그냥저냥 거뜬히 견딜 정도의 트래픽이었나보다.&lt;/p&gt;
+
+&lt;p&gt;여기서 특히 P95의 수치에 집중하였다. 서버의 비용과 유저의 만족도 간 최고의 효율을 낼 수 있는 비율이 95%라고 한다.&lt;/p&gt;
+
+&lt;p&gt;다음은 서버가 적당히 스트레스를 받을 정도의 부하를 줘 보자. 트래픽을 초당 15로 수정 후 report-15.json으로 다시 진행하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614783/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-36-32_qc0cfs.png&quot; alt=&quot;리포트페이지-15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;900 정도의 트래픽이 몰리니 에러도 나오고 지연 시간이 꽤 오래 걸리기 시작했다. 거의 마지막에는 1만 ms 를 넘겼는데 이는 대충 10초가 지나야 응답이 온다는 뜻이다. 내 입장에선 10 초 정도면 나름 견딜만 한 시간인데 전체 유저 입장에서 보면 적당한 것 일까 하는 의문이 든다.&lt;/p&gt;
+
+&lt;p&gt;비용이 많다면 유저를 만족시키는 정확한 성능을 찾는 것이 중요하겠지만, 비용이 제한된 상황에서라면 어떤 지침을 따르는 것이 맞을지 찾아보았는데 다음 세 가지를 만족하는 방향을 찾으면 된다고 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;예상 TPS보다 여유롭게. 예상 3000이라면 적어도 4000이상&lt;/li&gt;
+  &lt;li&gt;기대 Latency를 만족할 때 까지&lt;/li&gt;
+  &lt;li&gt;Scale-out을 해도 성능이 높아지지 않는다면 병목을 의심&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이상으로 CPU Stress Test 포스팅을 마무리한다. 처음해본 배포, 처음해본 부하 테스트 였는데 작지만 내가 만든 애플리케이션이 클라우드를 통해 배포되고, 많은 트래픽이 오는 상황을 예측해볼 수 있다니 두근거리는 경험이었다. 후에 이 경험을 살려 실제로 내가 회사나 개인 프로젝트를 띄워서 관리 중일 때 얼마나 많은 트래픽을 견뎌낼 수 있을지 테스트할 수 있을 것 같다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/15/Cpu-Stress-Test-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/15/Cpu-Stress-Test-2/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>KT Cloud TroubleShooting (ubuntu account)</title>
+        <description>&lt;h3 id=&quot;리눅스-os-ubuntu에서-kt-cloud-instance-os-ubuntu-ssh-접속-문제&quot;&gt;리눅스 OS (ubuntu)에서 KT Cloud Instance OS (ubuntu) ssh 접속 문제&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Description&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;KT Cloud의 D1을 이용하다가, 사용 중인 노트북의 os가 ubuntu였기 때문에 시작된 문제이다. ssh 접속 시 openssh의 버전에 따라 client에서의 접속이 차단 될 수 있다는 점을 새로 알게되었고, KT Cloud 기술 문서에서 오점을 찾아내었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Error Code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ubuntu에서 ssh 명령어로 원격 접속하려 했으나 Connection Closed 됨.&lt;/p&gt;
+
+&lt;p&gt;Windows에서 putty를 이용해 접속하려 했으나 not existing current key 출력 됨.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TroubleShooting&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Connection Closed가 되었다는건 연결은 되나 무언가의 오류로 인해 연결을 막고 있다는 뜻으로 해석했다.&lt;/p&gt;
+
+&lt;p&gt;그리고 언제나 나를 괴롭혀왔던 버전문제… 이번에도 역시나였다. (&lt;del&gt;운이 좋았다. 헤헤&lt;/del&gt;)&lt;/p&gt;
+
+&lt;p&gt;client와 server의 버전이 다를 경우 ssh 접속이 차단되는지 구글링을 시작하였고, 얻어낸 답은&lt;/p&gt;
+
+&lt;p&gt;ssh는 client의 버전이 server 버전보다 높을 경우 Connection Closed로 접속을 차단한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그래서 Windows로 먼저 접속해서 openssh의 버전을 update하고 다시 ubuntu로 시도해보기로 했다.&lt;/p&gt;
+
+&lt;p&gt;그런데 Windows로 접속 시도 중 예상치 못하게 키페어가 없다는 오류가 뜨면서 막막해지기 시작했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615814654/ScreenShots/21-03-05/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-15_22-12-33_ranxex.png&quot; alt=&quot;KT Cloud User Guide&quot; title=&quot;너 때문이야&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;공식 기술 문서를 다시 읽어보고 여러번 시도해보고 실패하고 반복하던 도중, 기술 문서에는 ubuntu os 는 계정명을 ubuntu으로 사용하라는 문장을 발견.&lt;/p&gt;
+
+&lt;p&gt;설마… 하는 느낌이 와서 계정을 ubuntu가 아닌 root로 바꿔보았다. CentOS는 root 로그인이 가능한데 ubuntu는 따로 언급이 없다는 것이 흠칫했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;접속에 성공했다…..&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;허무했다. 하지만 기술 문서에서 보완할 점을 하나 찾았다는 것이 꽤 뿌듯했다. 앞으로 클라우드 서버를 자주 이용하게 될테니 신고식 한 번한 셈 쳐야겠다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 05 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/05/KT-Cloud-TroubleShooting/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/05/KT-Cloud-TroubleShooting/</guid>
+        
+        
+        <category>TroubleShooting</category>
+        
+      </item>
+    
+      <item>
+        <title>Cpu Stress Test -1</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;목차&quot;&gt;목차&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;I/O Burst, I/O Bound VS CPU Burst, CPU Bound&lt;/li&gt;
+	&lt;li&gt;Hash를 이용해서 CPU를 극단적으로 사용하기 (feat. Spring Boot)&lt;/li&gt;
+	&lt;li&gt;GCP 인스턴스에 배포&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;io-burst-io-bound-vs-cpu-burst-cpu-bound&quot;&gt;I/O Burst, I/O Bound VS Cpu Burst, Cpu Bound&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;I/O Burst와 I/O Bound는 무엇이고, Cpu Burst와 Cpu Bound는 무엇일까?&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이를 설명하기 위해서는 우선 프로세스가 처리되는 과정을 먼저 알아야한다.
+그 전에 프로그램과 프로세스의 차이점부터 짚고 넘어가자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;프로그램&lt;/strong&gt; : 하드에 저장되어 있는 Application &lt;br /&gt;
+&lt;strong&gt;프로세스&lt;/strong&gt; : 메모리에 적재되어 있는 프로그램&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 메모리에 적재되어 처리를 기다리고 있는 프로세스들을 처리하는 순서를 &lt;strong&gt;프로세스 스케줄링&lt;/strong&gt;이라 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 프로세스 스케줄링에 따라 프로세스들은 CPU에 의해 처리되는데, 이 때 CPU에 I/O(input/output)되는 시간을 &lt;strong&gt;I/O Burst&lt;/strong&gt;, CPU가 프로세스를 처리하는 시간을 &lt;strong&gt;CPU Burst&lt;/strong&gt;라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 I/O Burst가 큰 프로그램을 &lt;strong&gt;I/O Bound&lt;/strong&gt;, CPU Burst가 큰 프로그램을 &lt;strong&gt;CPU Bound&lt;/strong&gt;라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;나는 GCP CPU 테스트를 위해 CPU Burst가 높은 간단한 프로그램을 만들었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;hash를-이용해서-cpu를-극단적으로-사용하기&quot;&gt;Hash를 이용해서 CPU를 극단적으로 사용하기&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래와 같은 코드를 참조하여 hash (md5)를 이용하는 프로그램을 작성하였다.&lt;/p&gt;
+
+&lt;p&gt;hash가 무엇인지 궁금하다면?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@yeon22/crypto-%ED%95%B4%EC%8B%9C-hash-%EB%9E%80-6962be197523&quot;&gt;해시에 대해&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;’'’java
+	import org.springframework.web.bind.annotation.PathVariable;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.RestController;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+@RestController
+public class HashController {
+
+	@RequestMapping(&quot;/hash/{input}&quot;)
+	public String getDigest(@PathVariable(&quot;input&quot;) String input) throws NoSuchAlgorithmException {
+	    for(int i = 0; i &amp;lt; 100_000; i++) {
+	        input = getMD5Digest(input);
+	    }
+	    return input;
+	}
+
+	@RequestMapping(&quot;/hello&quot;)
+	public String hello() {
+	    return &quot;hello&quot;;
+	}
+
+	private String getMD5Digest(String input) throws NoSuchAlgorithmException {
+	    MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);
+	    md.update(input.getBytes());
+	    byte[] digest = md.digest();
+	    String myHash = DatatypeConverter
+	            .printHexBinary(digest).toUpperCase();
+
+	    return myHash;
+	}
+} '''
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;참조 : https://github.com/lleellee0/cpu-bound-application &lt;br /&gt;
+–추가사항 : 충돌 방지를 위해 application.properties 파일에서 server.port 를 80으로 설정해줘야 한다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;/hash/{input} 과 /hello 두 가지 매핑이 있고, input에 들어온 문자열을 10만번 해시 연산한 결과를 반환한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;ERROR FIX&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;JDK8이 아닌 다른 버전을 쓸 경우 DataTypeConverter를 찾지 못하는 오류가 있었다.&lt;/p&gt;
+
+&lt;p&gt;나는 11로 하고 있었기 때문에 해당 패키지가 제외되어있던 상태라 의존성을 추가해주어야 했다.&lt;/p&gt;
+
+&lt;p&gt;’'’xml
+	&lt;dependency&gt;
+		&lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
+		&lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
+		&lt;version&gt;2.3.1&lt;/version&gt;
+	&lt;/dependency&gt;
+‘’’&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;gcp-인스턴스에-배포&quot;&gt;GCP 인스턴스에 배포&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;1 intelliJ 우측에서 maven 탭을 통해 .jar 파일을 만든다. (Maven -&amp;gt; Lifecycle -&amp;gt; deploy 더블클릭으로 생성!)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;익숙했던 maven 이지만 처음 알았던 내용인 만큼 조금 충격이었달까…
+그동안 배포를 한번도 안해봐서 .jar 파일을 만들 생각도, 만들어 볼 못했지만 
+이렇게해서 배포가 이루어 진다는 것을 배웠을 때 굉장히 희열을 느꼈다.
+( &lt;del&gt;생각해보니까 패키지 매니저인데 의존성 관리만 하고 패키징을 제대로 해본 적이 없었네…&lt;/del&gt; )&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2 깃허브 Repo에 push.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;3 GCP 인스턴스에 가서 wget [repo에 저장된 .jar파일 주소]을 사용해 인스턴스에 다운로드.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;나는 CentOS를 설치했기 때문에 yum install wget을 통해 wget 설치하였다. &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;GCP 는 한 계정당 3달간 300달러 무료 크레딧을 지급한다. 초과 시 과금되니 계정관리 필수 !! &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;GCP 인스턴스 생성에 대해서는 생략한다. &lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;4 sudo java -jar [다운받은 .jar 파일명] 명령어를 통해 실행 테스트!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1614939147/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-05_19-07-13_m3hhzt.png&quot; alt=&quot;GCP instance&quot; title=&quot;구동테스트&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;정상적으로 실행되는 모습이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;스트레스 테스트를 위한 과정 중 중간까지 왔다. 이제 준비가 다 되었고 스트레스 테스트하는 일만 남았는데 준비하는 과정만해도 새로이 배우는 것들이 많아서 굉장히 재미있었다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;다음 포스팅에서는 스트레스 테스트 툴 중 하나인 Artillery를 이용하여 테스트 결과를 출력해보자.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 03 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/03/Cpu-Stress-Test/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/03/Cpu-Stress-Test/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
+    
+      <item>
+        <title>About me</title>
+        <description>&lt;center&gt;
+&lt;img id=&quot;se_object_16146119104829970&quot; src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614668/Thumbnails/profile_ogfa9f.jpg&quot; alt=&quot;profile&quot; title=&quot;It's me&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;about-me&quot;&gt;About me&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이름 : 이장훈 (HEPHAI)
+&lt;br /&gt;
+생일 : 1996 / 10 / 31
+&lt;br /&gt;
+주소 : 경기도 화성시
+&lt;br /&gt;
+&lt;br /&gt;
+관심 분야 :&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;BackEnd&lt;/li&gt;
+	&lt;li&gt;Cloud&lt;/li&gt;
+	&lt;li&gt;Blockchain&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;취미 :&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;캠핑&lt;/li&gt;
+	&lt;li&gt;낚시&lt;/li&gt;
+	&lt;li&gt;요리&lt;/li&gt;
+	&lt;li&gt;운동 (PT, 축구)&lt;/li&gt;
+	&lt;li&gt;영상 편집&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Strong Point : 언제나 전체의 입장이 되어서 가장 올바른 해답을 찾으려 노력함.&lt;/p&gt;
+
+&lt;p&gt;Weak Point : 한 가지 일에 너무 심취할 경우 다른 일을 잘 보지 못함.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;who-am-i&quot;&gt;Who am I?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;소프트웨어전공 4년 2학기가 되서야 개발의 재미를 깨닫기 시작한 주니어 프로그래머. &lt;br /&gt;
+CapStone Project로 Android App 개발 도중, Google Firebase를 이용하다가 BackEnd에 관심을 가지기 시작하였다. &lt;br /&gt;
+이후 Spring boot / Docker / K8s / Node.js / Hyperledger fabric 등을 공부하고 있다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;개발을 매우 잘하는 개발자도 되고 싶지만, 그보다는 어떠한 팀에도 어울리는 “물” 같은 개발자가 되고 싶다. &lt;br /&gt;
+어떤 팀에도 잘 섞여들고, 어떤 정보도 잘 녹이고, 어떤 사람들에게나 친근하고 꼭 필요한 개발자가 되는 것이 목표이다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;개발은 “불”같은 열정으로, 협업은 “물”같은 유연함으로. &lt;br /&gt; 
+불과 물을 이용해 최고의 명작을 만들어내는 대장장이와 같이 개발하는 것이 내가 추구하는 개발자의 이미지이다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;education&quot;&gt;Education&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;2012 ~ 2014  부광고등학교&lt;/li&gt;
+	&lt;li&gt;2015 ~ 2021  공주대학교 소프트웨어전공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;※ 2016 ~ 2018 공군 만기 전역&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;experience-ing&quot;&gt;Experience (~ing)&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;공주대학교 소프트웨어전공 졸업&lt;/li&gt;
+	&lt;li&gt;&quot;쉽게 배우는 소프트웨어 공학 - 김치수 저&quot; Design Pattern 파트 예시코드 작성 및 집필 도움.&lt;/li&gt;
+	&lt;li&gt;&quot;JARA-DreamFairy&quot; 수면 패턴 유도 Android Application 개발 경험&lt;/li&gt;
+	&lt;li&gt;&quot;Ziktalk&quot; 엠버서더 및 테스터 활동&lt;/li&gt;
+	&lt;li&gt;Youtube Channel &quot;따배런&quot; 기획도움 및 편집자&lt;/li&gt;
+	&lt;li&gt;한국 소비자원 &quot;컨텐츠 크리에이팅 공모전&quot; 입상 (1등 최우수상)&lt;/li&gt;
+	&lt;li&gt;고등, 대학생 대상 IT Internship 부팀장으로 &quot;지식 나눔 활동&quot;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;certificate&quot;&gt;Certificate&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;정보처리기사&lt;/li&gt;
+	&lt;li&gt;JLPT N1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;familiar-skills&quot;&gt;Familiar Skills&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;C, python, R, java, spring, docker, k8s, (node.js) 추후 이미지로 변경.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;contact&quot;&gt;Contact&lt;/h4&gt;
+
+&lt;ul&gt; 
+	&lt;li&gt;E-mail : icetime963@gmail.com&lt;/li&gt;
+	&lt;li&gt;Github : bingsu-kun@github.com&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Mon, 01 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/01/about-me/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/01/about-me/</guid>
+        
+        
+        <category>Hephai</category>
+        
+      </item>
+    
   </channel>
 </rss>
