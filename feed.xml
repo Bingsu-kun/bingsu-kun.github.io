@@ -5,9 +5,130 @@
     <description>Mainly about coding, also my hobbys.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 Mar 2021 15:03:52 +0900</pubDate>
-    <lastBuildDate>Mon, 29 Mar 2021 15:03:52 +0900</lastBuildDate>
+    <pubDate>Mon, 29 Mar 2021 18:05:14 +0900</pubDate>
+    <lastBuildDate>Mon, 29 Mar 2021 18:05:14 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Jenkins 사용 정리</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;jenkins-개념-설치-및-실행-정리&quot;&gt;Jenkins 개념, 설치 및 실행 정리&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-란&quot;&gt;Jenkins 란?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;소프트웨어 개발 시 지속적으로 통합서비스를 제공해주는, CI(Continuous Integration)툴 이다.&lt;/p&gt;
+
+&lt;p&gt;Git과 같은 버전관리시스템과 연동하여 커밋을 감지하면 자동빌드/배포 되도록 설정할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;하지만 커밋은 매우 빈번히 일어나기 때문에 작업이 큐잉되어 빌드되는 것이 일반적이다.&lt;/p&gt;
+
+&lt;p&gt;이러한 자동화 작업은 다음과 같은 이점이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로젝트 표준 컴파일 환경에서의 컴파일 오류 검출&lt;/li&gt;
+  &lt;li&gt;자동화 테스트 수행&lt;/li&gt;
+  &lt;li&gt;정적 코드 분석에 의한 코딩 규약 준수여부 확인&lt;/li&gt;
+  &lt;li&gt;프로파일링 툴을 이용한 성능 변화 모니터링&lt;/li&gt;
+  &lt;li&gt;결합 테스트 환경에 대한 배포작업&lt;/li&gt;
+  &lt;li&gt;각종 배치 작업의 간략화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Jenkins는 또한 플러그인을 간단히 인스톨 할 수 있는 기능을 제공하고 있어 자신에게 필요한 기능을 손쉽게 사용가능하다. 혹여나 기능이 없다면 파이썬과 같은 스크립트를 이용해 추가 할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-설치&quot;&gt;Jenkins 설치&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;jenkins는 yum 명령어로 설치되지 않는다. 그래서 다음 명령들을 실행해야한다.&lt;/p&gt;
+
+&lt;p&gt;OS 환경은 CentOS7 이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그다음 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo yum install jenkins&lt;/code&gt; 명령을 치면 설치가 잘 된다.&lt;/p&gt;
+
+&lt;p&gt;설치 후에는 잊지말고 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl start jenkins&lt;/code&gt;로 daemon을 실행시켜주자.&lt;/p&gt;
+
+&lt;p&gt;또는 DockerHub에서 이미지를 다운받아 Docker로 실행하는 방법도 있다. 이에 대한 설명은 생략한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-실행&quot;&gt;Jenkins 실행&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;jenkins는 기본으로 8080포트를 사용한다. 클라우드 환경이라면 외부 IP:8080, 로컬이라면 localhost:8080 으로 접속하면 비밀번호를 입력하라는 창이 나온다.&lt;/p&gt;
+
+&lt;p&gt;창에 나와있는 경로로 가면 비밀번호가 있으니 복붙해서 접속하면 플러그인 설치가이드가 나온다.&lt;/p&gt;
+
+&lt;p&gt;왼쪽은 일반설치, 오른쪽은 매뉴얼 설치인데 만약 설치 중 계속 installation fail이 뜨고 그냥 넘어가거나 재시도 해야하는 상황이 되었다면 &lt;strong&gt;버전&lt;/strong&gt;문제이므로 최신 버전을 설치해주자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;설치가 완료 후 jenkins가 안전하게 worker instance에 접속할 수 있도록, 그리고 다른 접속을 막기위해 ssh-key-pair를 이용해 비대칭키를 만들어 적용한다.&lt;/p&gt;
+
+&lt;p&gt;우선 jenkins server terminal에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa&lt;/code&gt; 명령어로 키페어를 만들어준다.&lt;/p&gt;
+
+&lt;p&gt;그 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;.ssh&lt;/code&gt; 디렉토리로 들어가보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 있는 것과 없는 것 두 가지가 있을텐데 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 있는 것을 복사해서 worker instance의 &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.ssh/authorized_keys&lt;/code&gt; 파일에 붙여넣기 해준다.&lt;/p&gt;
+
+&lt;p&gt;그 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;/.ssh&lt;/code&gt; 디렉토리의 권한은 700으로, &lt;code class=&quot;highlighter-rouge&quot;&gt;/.ssh/authorized_keys&lt;/code&gt;는 600으로 바꿔준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;클라우드 환경인 경우, 클라우드 제공자가 ssh 키를 따로 보관하는 경우가 있으니 참고&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;배포하기&quot;&gt;배포하기&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 jenkins 관리 페이지로 가서 Publish over SSH 플러그인을 설치 해준 후, 환경설정에서 맨아래 Publish over SSH의 Key 칸에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 없었던 개인키를 복붙해주고 ssh servers에 Name은 임의로, Hostname은 worker instance의 주소, Username은 worker instance에서 사용하는 user 이름, Remote Directory는 웬만하면 home 디렉토리로 설정해서 저장.&lt;/p&gt;
+
+&lt;p&gt;다시 메인으로 가서 새로운 아이템 만들기, 프리스타일 프로젝트, 맨 아래 ‘빌드 후 조치’.&lt;/p&gt;
+
+&lt;p&gt;‘고급’ 클릭 후 verbose output in console을 체크, 그 다음 Exec command에 컨테이너 실행명령을 적어주자.&lt;/p&gt;
+
+&lt;p&gt;다음, 메인화면에서 Build Now를 누르면 빌드가 시작된다. 빌드가 완료되면 왼쪽아래에 무엇인가 떴을 것이다. #1 같이 뜬 것의 이름 옆 삼각형을 눌러 Console Output을 볼 수 있는데 이것을 보며 TroubleShooting 하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 스프링 같은 웹서버를 구동할 경우 정상 작동 중인데 빌드가 완료되지 않았다고 표시가 된다. 그럴 땐 다시 구성으로 가서 Exec command의 코드를&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nohup ... &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;로 수정하고 다시 실행 해보자. &lt;code class=&quot;highlighter-rouge&quot;&gt;nohup&lt;/code&gt;과 맨 뒤 &amp;amp;는 이 명령을 백그라운드로 실행시키겠다는 뜻이고, &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;명령은 표준에러를 표준출력으로 리다이렉트 시켜준다는 명령이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 도커로 컨테이너를 실행한다면 /var/run/docker.sock 관련 권한 오류가 나오는데, 이는 worker instance로 가서 &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod 666 /var/run/docker.sock&lt;/code&gt; 명령어를 실행시키면 해결된다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/29/Jenkins/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/29/Jenkins/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
     
       <item>
         <title>GCP 이용 중 yum install error</title>
