@@ -21,6 +21,10 @@
 <lastmod>2021-03-23T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2021/03/29/GCP-%EC%9D%B4%EC%9A%A9-%EC%A4%91-yum-install-error/</loc>
+<lastmod>2021-03-29T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/archive/</loc>
 </url>
 <url>
@@ -37,5 +41,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/category/planning-and-reviewing/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page-2/</loc>
 </url>
 </urlset>

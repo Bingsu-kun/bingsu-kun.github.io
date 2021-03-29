@@ -5,9 +5,108 @@
     <description>Mainly about coding, also my hobbys.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 23 Mar 2021 18:10:12 +0900</pubDate>
-    <lastBuildDate>Tue, 23 Mar 2021 18:10:12 +0900</lastBuildDate>
+    <pubDate>Mon, 29 Mar 2021 15:03:52 +0900</pubDate>
+    <lastBuildDate>Mon, 29 Mar 2021 15:03:52 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>GCP 이용 중 yum install error</title>
+        <description>&lt;h3 id=&quot;issue&quot;&gt;Issue&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Cloud Platform에서 Compute Engine 서비스로 CentOS 7 이용 중 yum install error가 발생하여 설치가 안되는 상황.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/1_bqgqeu.png&quot; alt=&quot;error&quot; /&gt;
+&lt;strong&gt;yum signature could not be verified&lt;/strong&gt;로 통칭되는 오류이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;steps-to-reproduce-the-issue&quot;&gt;Steps to reproduce the issue&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그저 GCP나 AWS Instance를 LinuxOS로 생성하고 yum, apt 등의 패키지 매니저를 통해 install 하려하면 등장한다.&lt;/p&gt;
+
+&lt;p&gt;stackoverflow에서 같은 오류를 겪은 사람이 어떻게 해결했나 보러 다녔는데, 항상 발생하는 것은 아니고 가끔씩 gpg key에 의해 발생하는 오류로 추정된다고 하더라.&lt;/p&gt;
+
+&lt;p&gt;GCP나 AWS Linux를 이용하다보면 드물게 발생한다는데…. 
+&lt;del&gt;이런건 왜 나만 걸리는 걸까&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;troubleshooting&quot;&gt;TroubleShooting&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;처음 접근은 에러메세지에서 추천하는 방법 중 &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo&lt;/code&gt; 옵션을 사용한 방법을 실행하였지만 같은 오류의 반복이었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;이 부분에서 에러메세지를 자세히 보지 않고 간과한 것이 빙 돌아가는 길의 시작이었다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;두번째로 gpg key를 몽땅 갈아엎고 새로 업데이트 시키자고 생각하여&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rpm --import &amp;lt;(curl -s -L https://packages.cloud.google.com/yum/doc/yum-key.gpg)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;명령으로 새로운 키를 받아와보려했으나 write body failed가 뜨면서 어려워졌다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;다시 오류메세지를 제대로 읽어보자고 생각, &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo=google-cloud-sdk&lt;/code&gt; 옵션을 이용하여 에러메세지를 띄우고 보았더니 &lt;code class=&quot;highlighter-rouge&quot;&gt;google-compute-engine&lt;/code&gt; 이라는 레포지토리가 하나 더 걸려서 에러가 지속되었던 것.&lt;/p&gt;
+
+&lt;p&gt;최종적으로&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum install wget --disablerepo=google-cloud-sdk,google-compute-engine -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;처럼 걸리는 레포지토리들을 전부 &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo&lt;/code&gt; 옵션으로 걸러내주니 정상 작동하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/2_nxe0jc.png&quot; alt=&quot;complete&quot; /&gt;
+&lt;em&gt;예에~&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 명령마다 저 옵션을 써주기엔 너무 번거로워서 조금 더 시간을 내어 완벽하게 오류를 고쳐보려했으나&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/3_udzgxq.png&quot; alt=&quot;find error&quot; /&gt;
+&lt;em&gt;(처절한 에러와의 싸움.png)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;고쳐지는건 나였고, 구글의 프로그래머 분들에게 떠넘기기로 했다. &lt;del&gt;헤헤&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;추가&quot;&gt;추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;글을 적으면서 문득 떠오른것이, ‘어 그럼 gpg 키 검사 안하면 되는거 아닌가?’&lt;/p&gt;
+
+&lt;p&gt;그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;--nogpgcheck&lt;/code&gt; 옵션으로 해봤더니 또 잘된다.&lt;/p&gt;
+
+&lt;p&gt;gpg key는 무엇이고 왜 없어도 잘 동작되는지 궁금해지기 시작했다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/29/GCP-%EC%9D%B4%EC%9A%A9-%EC%A4%91-yum-install-error/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/29/GCP-%EC%9D%B4%EC%9A%A9-%EC%A4%91-yum-install-error/</guid>
+        
+        
+        <category>TroubleShooting</category>
+        
+      </item>
     
       <item>
         <title>SCOFE2021 Review</title>
