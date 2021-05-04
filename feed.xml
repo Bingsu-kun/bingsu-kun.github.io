@@ -5,9 +5,195 @@
     <description>Mainly about coding, also my hobbys.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Apr 2021 16:57:01 +0900</pubDate>
-    <lastBuildDate>Thu, 08 Apr 2021 16:57:01 +0900</lastBuildDate>
+    <pubDate>Tue, 04 May 2021 10:38:23 +0900</pubDate>
+    <lastBuildDate>Tue, 04 May 2021 10:38:23 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Git, 실무에선 어떻게 쓰일까</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;git-실무에선-어떻게-쓰일까&quot;&gt;Git, 실무에선 어떻게 쓰일까&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;요새 스터디를 하며 git을 코드 리뷰용 툴로 이용하고 있다. (그전엔 그냥 원격 저장소 같은 느낌으로…)
+스터디 전에 이용하던 것과 차이는 여러 사람들과 한 레포지토리를 공유하며 쓰고 있는 점인데 이 과정에서 그동안 애매하게
+알고있던 브랜치와 PR (Pull Request)를 사용하며 진정한 git에 대해 알아가는 중이다. 이 두가지에 대한 의문이 풀리기
+시작하면서 오픈 소스 기여에 대한 로망도 점점 가까워지는 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 git을 쓰며 알아가던 중, 실무에서는 어떨지 궁금증이 생겨났다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PR 후, 새로 바뀐 코드에 대해 모든 것을 체크할까? 테스트코드는?&lt;/li&gt;
+  &lt;li&gt;충돌이 일어났다면 어떻게 대처할까?&lt;/li&gt;
+  &lt;li&gt;FE와 BE는 동시에 개발할까, 순서를 두고 개발할까?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;pr-후-모든-코드를-체크할까&quot;&gt;PR 후, 모든 코드를 체크할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;정답은 YES다. 그렇기 때문에 더욱 commit 주기가 중요하다고 한다. 대부분 기능 별로 나눠서 commit을 하고 
+서비스 단위로 묶어서 통합테스트를 진행한다고 한다(단위 테스트는 기능 commit 전 실행). 그렇다면 테스트코드들은?
+다 같이 묶여서 배포되는건가?? 라고 순간 생각했는데 패키징 할 때 테스트코드는 포함되지 않는다는 것을 깜빡했다.
+이러한 과정을 상상하던 중, 실무에서는 PR을 보고 merge를 결정하는 과정이 어떻게 흘러가고 누구의 결정에 따르는지 궁금해졌다.
+아마 개발팀장을 맡고 있는 사람일 것이라 얼핏 생각이 듦과 동시에 PR 산에 갇힌 모습이 상상되어 조금 숙연해졌다. 개발팀에 들어
+가게 되면 다른 팀원들도 생각하는 팀원이 되자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;충돌이-일어났다면-어떻게-대처할까&quot;&gt;충돌이 일어났다면 어떻게 대처할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;물론 그런 일은 없어야 마땅하지만, 만약 여러 사람이 하나의 파일을 불가피하게 수정한 경우에는 충돌이 일어나게 된다.
+예를들어 A라는 파일을 세 사람이 각각 A$ , A; , A^ 로 수정한 경우는 충돌이 일어나도 A$;^로 전부 합치면 그만이지만, 
+만약 A!라는 파일을 세 사람이 A , A! , A% 같이 빼고 더하고가 난무한 경우에는 어떻게 충돌을 처리할까? 
+너무 극단적인 경우라서 아마 자주 안일어날 것 같긴하지만… 예상으로는 이런 경우가 일어난다면 급하게 팀 회의가 열리지 않을까…?
+때에 따라서 A라는 파일이 크게 종속적인 파일 (ex. pom.xml)일 경우에는 세 사람 중 한 두명은 짰던 코드를 전부 갈아 엎어야 할 텐데
+생각만해도 너무 끔찍하다. 프로그래머로써 커뮤니케이션이 얼마나 중요한지 생각하게되는 질문거리 였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;fe와-be는-동시에-개발할까-순서를-두고-개발할까&quot;&gt;FE와 BE는 동시에 개발할까, 순서를 두고 개발할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 부분이 궁금했던 이유는, 보통 하나의 프로젝트를 FE와 BE로 나눠서 개발한다고 가정하였을 때, 동시에 개발 할 경우
+사전에 기획된 대로 개발 할 뿐, 이미 있는 FE 폼이나 BE 폼을 참고하며 개발할 순 없게된다. 아마 기준을 두고 여러번 
+회고를 진행하겠지만, 회고에서 두 파트가 어긋나는 경우가 많으면 굉장히 비효율적이게 된다. 그렇다고 FE나 BE를 먼저
+개발하고 그 후 다른 파트를 개발하게 된다면, FE가 개발할 땐 BE가 상대적으로 업무량이 적고 그 반대의 경우도 마찬가지가
+된다. 이에 대해서 실무에서는 FE와 BE의 개발이 어떤 흐름으로 흘러갈 지 관심을 가지게 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;오늘-질문의-종착점&quot;&gt;오늘 질문의 종착점&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;자문을 구하자&lt;br /&gt;
+ 여기저기 물어보면 답은 나오겠지만… 듣고 궁금증이 해결되었다고 해서 시원스럽진 않을 것 같다. 경험이 중요하니깐.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;취업을 하자&lt;br /&gt;
+ 제일 확실한 해결책이지만 내 마음대로 되는 것은 아니니까 (주륵)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;오픈소스 기여에 참가하자&lt;br /&gt;
+ 아무래도 실무자들도 많이 기여를 하기 때문에 git을 통해 branch와 PR을 이용하는 과정은 비슷하게 갈 것이라 예상된다.
+ 취업이 내 마음대로 안된다는 점을 생각하면 현실적으로 제일 가능한 선택지인데, 참여하기 위한 허들이 얼마나 높을지가 
+ 관건이다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 15 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/04/15/git-in-work/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/15/git-in-work/</guid>
+        
+        
+        <category>Questions</category>
+        
+      </item>
+    
+      <item>
+        <title>Coding Test를 준비하며 느낀점</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;coding-test를-준비하며-느낀점&quot;&gt;Coding Test를 준비하며 느낀점&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;코딩테스트를-처음-만난지-일-년-본격적으로-준비한-지-한-달&quot;&gt;코딩테스트를 처음 만난지 일 년. 본격적으로 준비한 지 한 달.&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2020년 초, 한창 졸업에 필요한 필수 항목들을 체크하며 채워나갈 때 아이디어 및 프로젝트 공모전에 나간적이 있다.&lt;br /&gt;
+공모전에 참여했었다는 것 만으로도 졸업 조건 중 하나에 충족했기 때문에 자신은 없지만 같은 학년의 친구들과&lt;br /&gt;
+도전하게 되었고, 참여를 위한 첫 관문으로 사업계획서 제출과 코딩테스트 응시를 만나게 되었다.&lt;br /&gt;
+(~지금에서야 드는 생각이지만 조금 더 열정을 가지고 공부해가며 참가했으면 어땠을까… 반성하자ㅠㅠㅠ~)&lt;br /&gt;
+사업계획서는 모두의 아이디어를 쥐어짜내어 어떻게든 썼지만 코딩테스트라는 벽에 무심코 덤빈 결과는 배드엔딩이었다.&lt;/p&gt;
+
+&lt;p&gt;그 후 1년이 지나, 궁극적인 목적은 취업 관문을 통과하기 위해서지만 코딩테스트 대회도 준비하며 여러가지 문제를 풀고&lt;br /&gt;
+풀어나가는 방법을 정리해나가기 시작했다. 그리고 그 과정이 3월 23일 스코페 2021 준비부터 시작해 한 달 정도가 지난&lt;br /&gt;
+지금, 회고를 작성해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;java는-잠시-내려두고-python을-잡다&quot;&gt;Java는 잠시 내려두고 Python을 잡다.&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;HTML, CSS, Python, C++, JS 등 많은 언어를 만났지만 학교 커리큘럼 상 앞의 언어들은 수박 겉 핥기 식으로 넘어갈 뿐,
+주로 배우고 쓴 언어는 Java였다. 특히 Python은 VSCode가 없었던 때에 다른 IDE를 쓰지않고 cmd 창 같은 곳에다가 코딩을
+했는데 (정확히 기억 안나지만 아마 Python 기본 툴) 이것의 단점이 코드를 여러 줄 타이핑하고 실행했는데 오타가 나면
+다시 처음부터 써야하는 번거로움이 있었기에 Python은 내게 좋은 기억은 아니었다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 안좋은 기억을 준 Python을 왜 다시 찾게 되었냐하면… 본격적으로 코딩테스트 준비를 시작하고 첫 문제를 Java로
+풀어서 냈다. 20 줄 정도를 써서 내었는데, Python 풀이를 보니 단 2줄로 끝나는 것이다. Java를 사용하며 해줘야 했던 
+번거로운 과정들이 Python에서는
+기본으로 제공되는 기능을 간략한 문법으로 풀어내다보니 코드는 엄청 짧아지고 풀이시간 또한 굉장히 단축될 것이 뻔했다.
+더이상 고민할 필요는 없었다. 바로 Java를 잠시 내려두고 Python으로 코딩테스트를 준비하기 시작했다.&lt;/p&gt;
+
+&lt;p&gt;Python을 다시 배우기 시작하며 느낀 점을 한마디로 표현하자면, 예전 기억과는 달리 굉장히 배우기 쉽고 간편한 언어였다.
+IDE가 받쳐주니 Python의 장점이 몸소 느껴지기 시작했고, 코드업 기초 100제를 풀며 Python의 기초를 알아갔다.
+잠깐 여담이지만, 새로운 언어를 배워보고자 할 때 코딩테스트 기초문제를 풀어보는 것이 굉장히 좋은 방법이라는 것을 이때 깨달았다.
+100문제는 큰 어려움 없이 잘 풀었으나 아직 Python을 Python답게 쓰고 있지 못하는 것 같았다. 그래서 프로그래머스의 고득점 Kit
+문제를 유형별로 풀어보며, 다른 사람들의 코드를 많이 참고하며 공부했다. 특히 문제를 풀어나가는 방법을 유형별로 익혀가는 것이
+제일 도움이 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;어떤-개념이-코딩테스트에서-가장-큰-도움이-되었나&quot;&gt;어떤 개념이 코딩테스트에서 가장 큰 도움이 되었나?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;코딩테스트를 보다 보면 프로그래머스 기준 2단계 ~ 3단계 문제를 풀기 위해 &lt;strong&gt;자료구조와 알고리즘&lt;/strong&gt;을 어느 정도 알아야하는데,
+이 부분을 학교에서 관심있게 공부했던 것이 큰 도움이 되었다. 특히 자신이 2단계와 3단계 사이의 벽을 못넘고 있다면,
+&lt;strong&gt;stack&lt;/strong&gt;과 &lt;strong&gt;queue&lt;/strong&gt;를 자유자재로 쓸 수 있게 공부하는 것을 추천한다. 3단계부터는 그래프, DFS, BFS, DP 등의 문제가 주로
+나오는데, 대부분이 dictionary를 이용한 hash와 queue, stack 그리고 2차원 배열을 주로 사용하므로 이 개념들을 아는 것이
+제일 도움이 된 것 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;다음-목표는&quot;&gt;다음 목표는?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 3단계 까지는 어찌저찌 풀어내긴 하지만 풀이 시간에서는 부족함이 많다. 때론 2단계 문제도 첫 단추를 잘못 꿰어서&lt;br /&gt;
+헤매다가 시간이 꽤 걸리기도 한다. 좀 더 문제를 많이 풀어보고 경험을 쌓아서 프로그래머스에서 제공하는 실력체크&lt;br /&gt;
+3단계 뱃지까지 취득하는 것이 다음 목표이다.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/04/10/Coding-Test/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/10/Coding-Test/</guid>
+        
+        
+        <category>Planning-And-Reviewing</category>
+        
+      </item>
     
       <item>
         <title>Nginx Load Balancer</title>
@@ -337,7 +523,7 @@ sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
         <guid isPermaLink="true">http://localhost:4000/2021/03/29/GCP-%EC%9D%B4%EC%9A%A9-%EC%A4%91-yum-install-error/</guid>
         
         
-        <category>TroubleShooting</category>
+        <category>Trouble-Shooting</category>
         
       </item>
     
@@ -639,7 +825,7 @@ sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
         <guid isPermaLink="true">http://localhost:4000/2021/03/05/KT-Cloud-TroubleShooting/</guid>
         
         
-        <category>TroubleShooting</category>
+        <category>Trouble-Shooting</category>
         
       </item>
     
@@ -1010,7 +1196,7 @@ CapStone Project로 Android App 개발 도중, Google Firebase를 이용하다�
         <guid isPermaLink="true">http://localhost:4000/2021/03/01/about-me/</guid>
         
         
-        <category>Hephai</category>
+        <category>About-me</category>
         
       </item>
     
