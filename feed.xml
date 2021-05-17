@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HEPHAI's devlog</title>
+    <description>Mainly about coding, also my hobbys.</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 17 May 2021 15:16:33 +0900</pubDate>
+    <lastBuildDate>Mon, 17 May 2021 15:16:33 +0900</lastBuildDate>
+    <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>일본의 방사능폐기물 방류를 대비한 환경방사선량 앱 기획</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;기획하게-된-배경&quot;&gt;기획하게 된 배경&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;나는-낚시를-매우-좋아한다&quot;&gt;나는 낚시를 매우 좋아한다.&lt;/h4&gt;
+
+&lt;p&gt;민물에서는 붕어, 배스, 송어, 잉어, 향어 등등을, 바다에서는 우럭, 광어, 농어, 그리고 찌낚시로 잡을 수 있는 무수히 많은 종류들을 낚시로 잡곤 한다. 낚시를 취미로 갖고 있기에 물 근처에 가는 일도 빈번하다. 저수지나 바다같이 탁 트인 공간에 나가서 낚시를 하다보면 물고기를 잡는 것 보다는 경치를 보며 힐링이 된달까. 일상에서의 지루함이나 정신적 피로가 많이 쌓였을 때는 주로 낚시를 통해 푸는 것 같다. 그런데 최근 구설수에 오르고 있는 ‘지자체의 무분별 낚금(=낚시금지)지역 설정’보다 나를 비롯한 다른 낚시인들에게 더 큰 위협을 주게 된 뉴스가 하나 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;일본의-후쿠시마-방사능폐기물-바다-방류-결정&quot;&gt;일본의 후쿠시마 방사능폐기물 바다 방류 결정&lt;/h4&gt;
+
+&lt;p&gt;최근 일본에서 후쿠시마 원전에서 발생했던 방사능폐기물을 전부 바다에 방류조치 하겠다고 결정을 내렸다. 이 뉴스가 퍼지자마자 세계는 반기를 들고 일어섰지만, 만약 정말 일본이 앞뒤 안보고 방류하게 되면 제일 가까운 우리나라가 피해가 가장 클 것이라 예상했고, 더 나아가 나와 같이 바다 근처에서 레저를 즐기는 사람들에게는 큰 타격이다. 하지만 내가 이미 방류된 폐기물을 어찌할 수는 없다. 그래서 나와 같은 레저를 즐기는 사람들이 미리 방사능에 대한 정보를 빠르고 직관적으로 얻을 수 있도록 하기위해 이 앱을 기획하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;기능&quot;&gt;기능?&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;현재-위치의-방사능-수치와-위험도-표시&quot;&gt;현재 위치의 방사능 수치와 위험도 표시&lt;/h4&gt;
+
+&lt;p&gt;사용자 디바이스의 위치를 GPS로 받아들여 그 위치에 대한 방사능 수치를 api를 통해 알아오고, 수치에 따른 위험도와 함께 화면에 출력한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;원하는-위치의-방사능-수치와-위험도-표시&quot;&gt;원하는 위치의 방사능 수치와 위험도 표시&lt;/h4&gt;
+
+&lt;p&gt;지도 api에서 위치를 지정하면 해당하는 위치의 수치와 위험도를 출력한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;추후-업데이트-계획&quot;&gt;추후 업데이트 계획&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위젯 기능&lt;/li&gt;
+  &lt;li&gt;애플, 갤럭시 워치에서 호환 가능하도록 구현&lt;/li&gt;
+  &lt;li&gt;반경 N 미터 이내에 고 방사능 위험 구역이 있을 경우 푸시 알림으로 위험 알림&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;구현과-구조&quot;&gt;구현과 구조&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;우선적으로 웹을 만든 후 React Native webview를 통해 웹 앱으로 만들 예정.&lt;br /&gt;
+집에서 놀고있는 리눅스 pc를 고정 ip를 통해 웹 서버로 이용할 계획이라 도메인은 불필요할 것으로 예상된다. (앱으로 이용시 도메인은 필요없을 것이라 예상했다. 하지만 공유기의 외부 IP를 주기적으로 확인해보고 IP가 유동이라면 호스팅 이용도 염두해두고 있다.) 
+프론트에서 쓰일 라이브러리는 아직 미정이지만 추후 기능 구현을 위해 필요한 것을 쓸 예정이다.&lt;br /&gt;
+백엔드는 node.js를 쓸 예정. 프론트를 비동기로 처리할 계획일 뿐 아니라 js 사용을 연습하기위해 프론트와 백 둘다 js를 기준으로 결정하였다.&lt;/p&gt;
+
+&lt;p&gt;리눅스 ubuntu 20.04 lts 버전으로 docker를 이용해서 운영할 계획이며 dockerhub webhook과 github webhook을 이용하여 jenkins로 CI/CD 자동화 할 예정.&lt;/p&gt;
+
+&lt;h4 id=&quot;유의할-점&quot;&gt;유의할 점&lt;/h4&gt;
+
+&lt;p&gt;api의 일일 제한 트래픽이 1000이었다. 그러므로 scheduler를 이용해서 주기적으로 서버에 데이터를 두고 업데이트하는 방식으로 할지 고민 중.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 05 May 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/05/05/Eco-RadioActive/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/05/Eco-RadioActive/</guid>
+        
+        
+        <category>Planning-And-Reviewing</category>
+        
+      </item>
+    
+      <item>
+        <title>Git, 실무에선 어떻게 쓰일까</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;git-실무에선-어떻게-쓰일까&quot;&gt;Git, 실무에선 어떻게 쓰일까&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;요새 스터디를 하며 git을 코드 리뷰용 툴로 이용하고 있다. (그전엔 그냥 원격 저장소 같은 느낌으로…)
+스터디 전에 이용하던 것과 차이는 여러 사람들과 한 레포지토리를 공유하며 쓰고 있는 점인데 이 과정에서 그동안 애매하게
+알고있던 브랜치와 PR (Pull Request)를 사용하며 진정한 git에 대해 알아가는 중이다. 이 두가지에 대한 의문이 풀리기
+시작하면서 오픈 소스 기여에 대한 로망도 점점 가까워지는 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 git을 쓰며 알아가던 중, 실무에서는 어떨지 궁금증이 생겨났다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PR 후, 새로 바뀐 코드에 대해 모든 것을 체크할까? 테스트코드는?&lt;/li&gt;
+  &lt;li&gt;충돌이 일어났다면 어떻게 대처할까?&lt;/li&gt;
+  &lt;li&gt;FE와 BE는 동시에 개발할까, 순서를 두고 개발할까?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;pr-후-모든-코드를-체크할까&quot;&gt;PR 후, 모든 코드를 체크할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;정답은 YES다. 그렇기 때문에 더욱 commit 주기가 중요하다고 한다. 대부분 기능 별로 나눠서 commit을 하고 
+서비스 단위로 묶어서 통합테스트를 진행한다고 한다(단위 테스트는 기능 commit 전 실행). 그렇다면 테스트코드들은?
+다 같이 묶여서 배포되는건가?? 라고 순간 생각했는데 패키징 할 때 테스트코드는 포함되지 않는다는 것을 깜빡했다.
+이러한 과정을 상상하던 중, 실무에서는 PR을 보고 merge를 결정하는 과정이 어떻게 흘러가고 누구의 결정에 따르는지 궁금해졌다.
+아마 개발팀장을 맡고 있는 사람일 것이라 얼핏 생각이 듦과 동시에 PR 산에 갇힌 모습이 상상되어 조금 숙연해졌다. 개발팀에 들어
+가게 되면 다른 팀원들도 생각하는 팀원이 되자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;충돌이-일어났다면-어떻게-대처할까&quot;&gt;충돌이 일어났다면 어떻게 대처할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;물론 그런 일은 없어야 마땅하지만, 만약 여러 사람이 하나의 파일을 불가피하게 수정한 경우에는 충돌이 일어나게 된다.
+예를들어 A라는 파일을 세 사람이 각각 A$ , A; , A^ 로 수정한 경우는 충돌이 일어나도 A$;^로 전부 합치면 그만이지만, 
+만약 A!라는 파일을 세 사람이 A , A! , A% 같이 빼고 더하고가 난무한 경우에는 어떻게 충돌을 처리할까? 
+너무 극단적인 경우라서 아마 자주 안일어날 것 같긴하지만… 예상으로는 이런 경우가 일어난다면 급하게 팀 회의가 열리지 않을까…?
+때에 따라서 A라는 파일이 크게 종속적인 파일 (ex. pom.xml)일 경우에는 세 사람 중 한 두명은 짰던 코드를 전부 갈아 엎어야 할 텐데
+생각만해도 너무 끔찍하다. 프로그래머로써 커뮤니케이션이 얼마나 중요한지 생각하게되는 질문거리 였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;fe와-be는-동시에-개발할까-순서를-두고-개발할까&quot;&gt;FE와 BE는 동시에 개발할까, 순서를 두고 개발할까?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 부분이 궁금했던 이유는, 보통 하나의 프로젝트를 FE와 BE로 나눠서 개발한다고 가정하였을 때, 동시에 개발 할 경우
+사전에 기획된 대로 개발 할 뿐, 이미 있는 FE 폼이나 BE 폼을 참고하며 개발할 순 없게된다. 아마 기준을 두고 여러번 
+회고를 진행하겠지만, 회고에서 두 파트가 어긋나는 경우가 많으면 굉장히 비효율적이게 된다. 그렇다고 FE나 BE를 먼저
+개발하고 그 후 다른 파트를 개발하게 된다면, FE가 개발할 땐 BE가 상대적으로 업무량이 적고 그 반대의 경우도 마찬가지가
+된다. 이에 대해서 실무에서는 FE와 BE의 개발이 어떤 흐름으로 흘러갈 지 관심을 가지게 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;오늘-질문의-종착점&quot;&gt;오늘 질문의 종착점&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;자문을 구하자&lt;br /&gt;
+ 여기저기 물어보면 답은 나오겠지만… 듣고 궁금증이 해결되었다고 해서 시원스럽진 않을 것 같다. 경험이 중요하니깐.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;취업을 하자&lt;br /&gt;
+ 제일 확실한 해결책이지만 내 마음대로 되는 것은 아니니까 (주륵)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;오픈소스 기여에 참가하자&lt;br /&gt;
+ 아무래도 실무자들도 많이 기여를 하기 때문에 git을 통해 branch와 PR을 이용하는 과정은 비슷하게 갈 것이라 예상된다.
+ 취업이 내 마음대로 안된다는 점을 생각하면 현실적으로 제일 가능한 선택지인데, 참여하기 위한 허들이 얼마나 높을지가 
+ 관건이다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 15 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/04/15/git-in-work/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/15/git-in-work/</guid>
+        
+        
+        <category>Questions</category>
+        
+      </item>
+    
+      <item>
+        <title>Coding Test를 준비하며 느낀점</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;coding-test를-준비하며-느낀점&quot;&gt;Coding Test를 준비하며 느낀점&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;코딩테스트를-처음-만난지-일-년-본격적으로-준비한-지-한-달&quot;&gt;코딩테스트를 처음 만난지 일 년. 본격적으로 준비한 지 한 달.&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2020년 초, 한창 졸업에 필요한 필수 항목들을 체크하며 채워나갈 때 아이디어 및 프로젝트 공모전에 나간적이 있다.&lt;br /&gt;
+공모전에 참여했었다는 것 만으로도 졸업 조건 중 하나에 충족했기 때문에 자신은 없지만 같은 학년의 친구들과&lt;br /&gt;
+도전하게 되었고, 참여를 위한 첫 관문으로 사업계획서 제출과 코딩테스트 응시를 만나게 되었다.&lt;br /&gt;
+(~지금에서야 드는 생각이지만 조금 더 열정을 가지고 공부해가며 참가했으면 어땠을까… 반성하자ㅠㅠㅠ~)&lt;br /&gt;
+사업계획서는 모두의 아이디어를 쥐어짜내어 어떻게든 썼지만 코딩테스트라는 벽에 무심코 덤빈 결과는 배드엔딩이었다.&lt;/p&gt;
+
+&lt;p&gt;그 후 1년이 지나, 궁극적인 목적은 취업 관문을 통과하기 위해서지만 코딩테스트 대회도 준비하며 여러가지 문제를 풀고&lt;br /&gt;
+풀어나가는 방법을 정리해나가기 시작했다. 그리고 그 과정이 3월 23일 스코페 2021 준비부터 시작해 한 달 정도가 지난&lt;br /&gt;
+지금, 회고를 작성해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;java는-잠시-내려두고-python을-잡다&quot;&gt;Java는 잠시 내려두고 Python을 잡다.&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;HTML, CSS, Python, C++, JS 등 많은 언어를 만났지만 학교 커리큘럼 상 앞의 언어들은 수박 겉 핥기 식으로 넘어갈 뿐,
+주로 배우고 쓴 언어는 Java였다. 특히 Python은 VSCode가 없었던 때에 다른 IDE를 쓰지않고 cmd 창 같은 곳에다가 코딩을
+했는데 (정확히 기억 안나지만 아마 Python 기본 툴) 이것의 단점이 코드를 여러 줄 타이핑하고 실행했는데 오타가 나면
+다시 처음부터 써야하는 번거로움이 있었기에 Python은 내게 좋은 기억은 아니었다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 안좋은 기억을 준 Python을 왜 다시 찾게 되었냐하면… 본격적으로 코딩테스트 준비를 시작하고 첫 문제를 Java로
+풀어서 냈다. 20 줄 정도를 써서 내었는데, Python 풀이를 보니 단 2줄로 끝나는 것이다. Java를 사용하며 해줘야 했던 
+번거로운 과정들이 Python에서는
+기본으로 제공되는 기능을 간략한 문법으로 풀어내다보니 코드는 엄청 짧아지고 풀이시간 또한 굉장히 단축될 것이 뻔했다.
+더이상 고민할 필요는 없었다. 바로 Java를 잠시 내려두고 Python으로 코딩테스트를 준비하기 시작했다.&lt;/p&gt;
+
+&lt;p&gt;Python을 다시 배우기 시작하며 느낀 점을 한마디로 표현하자면, 예전 기억과는 달리 굉장히 배우기 쉽고 간편한 언어였다.
+IDE가 받쳐주니 Python의 장점이 몸소 느껴지기 시작했고, 코드업 기초 100제를 풀며 Python의 기초를 알아갔다.
+잠깐 여담이지만, 새로운 언어를 배워보고자 할 때 코딩테스트 기초문제를 풀어보는 것이 굉장히 좋은 방법이라는 것을 이때 깨달았다.
+100문제는 큰 어려움 없이 잘 풀었으나 아직 Python을 Python답게 쓰고 있지 못하는 것 같았다. 그래서 프로그래머스의 고득점 Kit
+문제를 유형별로 풀어보며, 다른 사람들의 코드를 많이 참고하며 공부했다. 특히 문제를 풀어나가는 방법을 유형별로 익혀가는 것이
+제일 도움이 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;어떤-개념이-코딩테스트에서-가장-큰-도움이-되었나&quot;&gt;어떤 개념이 코딩테스트에서 가장 큰 도움이 되었나?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;코딩테스트를 보다 보면 프로그래머스 기준 2단계 ~ 3단계 문제를 풀기 위해 &lt;strong&gt;자료구조와 알고리즘&lt;/strong&gt;을 어느 정도 알아야하는데,
+이 부분을 학교에서 관심있게 공부했던 것이 큰 도움이 되었다. 특히 자신이 2단계와 3단계 사이의 벽을 못넘고 있다면,
+&lt;strong&gt;stack&lt;/strong&gt;과 &lt;strong&gt;queue&lt;/strong&gt;를 자유자재로 쓸 수 있게 공부하는 것을 추천한다. 3단계부터는 그래프, DFS, BFS, DP 등의 문제가 주로
+나오는데, 대부분이 dictionary를 이용한 hash와 queue, stack 그리고 2차원 배열을 주로 사용하므로 이 개념들을 아는 것이
+제일 도움이 된 것 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;다음-목표는&quot;&gt;다음 목표는?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 3단계 까지는 어찌저찌 풀어내긴 하지만 풀이 시간에서는 부족함이 많다. 때론 2단계 문제도 첫 단추를 잘못 꿰어서&lt;br /&gt;
+헤매다가 시간이 꽤 걸리기도 한다. 좀 더 문제를 많이 풀어보고 경험을 쌓아서 프로그래머스에서 제공하는 실력체크&lt;br /&gt;
+3단계 뱃지까지 취득하는 것이 다음 목표이다.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/04/10/Coding-Test/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/10/Coding-Test/</guid>
+        
+        
+        <category>Planning-And-Reviewing</category>
+        
+      </item>
+    
+      <item>
+        <title>Nginx Load Balancer</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;nginx-설치-및-간단-load-balancer-설정&quot;&gt;Nginx 설치 및 간단 Load Balancer 설정&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;nginx-란&quot;&gt;Nginx 란?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;엔진엑스(Nginx)는 Igor Sysoev라는 러시아 개발자가 동시접속 처리에 특화된 웹 서버 프로그램이다. Apache보다 동작이 단순하고, 전달자 역할만 하기 때문에 동시접속 처리에 특화되어 있다.
+Nginx의 역할 중 가장 중요한 두 가지 역할은 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정적 파일을 처리하는 HTTP 서버로서의 역할&lt;/li&gt;
+  &lt;li&gt;응용프로그램 서버에 요청을 보내는 &lt;a href=&quot;https://m.blog.naver.com/alice_k106/221190043948&quot;&gt;리버스 프록시&lt;/a&gt;로서의 역할&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;또한 Nginx는 비동기 처리 방식(Event-Drive) 방식을 채택하고 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;동기(Synchronous) : A가 B에게 데이터를 요청했을 때, 이 요청에 따른 응답을 주어야만 A가 다시 작업 처리가 가능 (하나의 요청, 하나의 작업에 충실)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;비동기(Asynchronous) : A의 요청을 B가 즉시 주지 않아도, A의 유휴시간으로 또 다른 작업 처리가 가능한 방식&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://poiemaweb.com/js-async&quot;&gt;동기식 처리 방식과 비동기식 처리 방식의 차이&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;nginx-설치&quot;&gt;Nginx 설치&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;작성자는 Ubuntu 20.04 환경에서 실행했습니다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo apt-get install nginx&lt;/code&gt; 명령어로 간단하게 설치 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;nginx-실행&quot;&gt;Nginx 실행&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;설치 된 상태 그대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl start nginx&lt;/code&gt; 를 통해 Daemon을 실행해주면 바로 기본 index 페이지가 뜬다. 이 상태 그대로 웹 서버처럼 사용할 수도 있지만, Load Balacer 로써 사용하기 위해서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.conf&lt;/code&gt; 파일을 설정해주어야 한다. &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo vi /etc/nginx/nginx.conf&lt;/code&gt; 명령어를 통해 nginx의 설정을 수정하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Load Balancing 설정을 하기 전, &lt;a href=&quot;https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/&quot;&gt;Nginx 공식 기술 문서&lt;/a&gt;를 참조 할 것을 추천한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;내가 듣는 강의에서 사용한 예시 코드 :&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;upstream cpu-bound-app {
+  server {instance_1번의_ip}:8080 weight=100 max_fails=3 fail_timeout=3s;
+  server {instance_2번의_ip}:8080 weight=100 max_fails=3 fail_timeout=3s;
+  server {instance_3번의_ip}:8080 weight=100 max_fails=3 fail_timeout=3s;
+}
+
+location / {
+  proxy_pass http://cpu-bound-app;
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection 'upgrade';
+  proxy_set_header Host $host;
+  proxy_cache_bypass $http_upgrade;
+} 
+
+#code by foo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;설정을 이렇게 바꿔주었다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl restart nginx&lt;/code&gt; 또는 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl reload nginx&lt;/code&gt;를 통해 Daemon을 재시작 해주어야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기까지하면 Nginx가 알아서 Load Balancing을 잘 해줄것 같지만 테스트해보면 그렇지가 않다. 이를 해결하기위한 과정이 아래 이어진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;troubleshooting&quot;&gt;TroubleShooting&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같이 설정을 마친 후, 다시 nginx에 접속해보면 404 Error 페이지가 맞이해준다. 어떤 문제점이 있었는지 확인하기 위해 nginx 서버의 log 파일을 볼 필요가 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo tail -f /var/log/nginx/error.log;&lt;/code&gt; 명령어를 통해 log를 열어보면, connect() 가 실패했고 에러코드 13: 권한없음 이라고 적힌 에러가 많이 나와있다. 이 에러코드를 복사해서 구글링하면 해결하기 위해 아래 명령어를 사용해야한다고 나온다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo setsebool -P httpd_can_network_connect on&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이는 connect() 메서드가 기본적으로 사용을 막아놓았기 때문에 발생하는 에러였다. 위 명령어를 실행해주고 다시 접속해보면 정상적으로 nginx가 load balancing 하고 있는 것을 확인 할 수 있다.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/04/01/Nginx-(Load-Balancer)/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/01/Nginx-(Load-Balancer)/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
+    
+      <item>
+        <title>Jenkins 사용 정리</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;jenkins-개념-설치-및-실행-정리&quot;&gt;Jenkins 개념, 설치 및 실행 정리&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-란&quot;&gt;Jenkins 란?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;소프트웨어 개발 시 지속적으로 통합서비스를 제공해주는, CI(Continuous Integration)툴 이다.&lt;/p&gt;
+
+&lt;p&gt;Git과 같은 버전관리시스템과 연동하여 커밋을 감지하면 자동빌드/배포 되도록 설정할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;하지만 커밋은 매우 빈번히 일어나기 때문에 작업이 큐잉되어 빌드되는 것이 일반적이다.&lt;/p&gt;
+
+&lt;p&gt;이러한 자동화 작업은 다음과 같은 이점이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로젝트 표준 컴파일 환경에서의 컴파일 오류 검출&lt;/li&gt;
+  &lt;li&gt;자동화 테스트 수행&lt;/li&gt;
+  &lt;li&gt;정적 코드 분석에 의한 코딩 규약 준수여부 확인&lt;/li&gt;
+  &lt;li&gt;프로파일링 툴을 이용한 성능 변화 모니터링&lt;/li&gt;
+  &lt;li&gt;결합 테스트 환경에 대한 배포작업&lt;/li&gt;
+  &lt;li&gt;각종 배치 작업의 간략화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Jenkins는 또한 플러그인을 간단히 인스톨 할 수 있는 기능을 제공하고 있어 자신에게 필요한 기능을 손쉽게 사용가능하다. 혹여나 기능이 없다면 파이썬과 같은 스크립트를 이용해 추가 할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-설치&quot;&gt;Jenkins 설치&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;jenkins는 yum 명령어로 설치되지 않는다. 그래서 다음 명령들을 실행해야한다.&lt;/p&gt;
+
+&lt;p&gt;OS 환경은 CentOS7 이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그다음 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo yum install jenkins&lt;/code&gt; 명령을 치면 설치가 잘 된다.&lt;/p&gt;
+
+&lt;p&gt;설치 후에는 잊지말고 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl start jenkins&lt;/code&gt;로 daemon을 실행시켜주자.&lt;/p&gt;
+
+&lt;p&gt;또는 DockerHub에서 이미지를 다운받아 Docker로 실행하는 방법도 있다. 이에 대한 설명은 생략한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jenkins-실행&quot;&gt;Jenkins 실행&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;jenkins는 기본으로 8080포트를 사용한다. 클라우드 환경이라면 외부 IP:8080, 로컬이라면 localhost:8080 으로 접속하면 비밀번호를 입력하라는 창이 나온다.&lt;/p&gt;
+
+&lt;p&gt;창에 나와있는 경로로 가면 비밀번호가 있으니 복붙해서 접속하면 플러그인 설치가이드가 나온다.&lt;/p&gt;
+
+&lt;p&gt;왼쪽은 일반설치, 오른쪽은 매뉴얼 설치인데 만약 설치 중 계속 installation fail이 뜨고 그냥 넘어가거나 재시도 해야하는 상황이 되었다면 &lt;strong&gt;버전&lt;/strong&gt;문제이므로 최신 버전을 설치해주자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;설치가 완료 후 jenkins가 안전하게 worker instance에 접속할 수 있도록, 그리고 다른 접속을 막기위해 ssh-key-pair를 이용해 비대칭키를 만들어 적용한다.&lt;/p&gt;
+
+&lt;p&gt;우선 jenkins server terminal에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa&lt;/code&gt; 명령어로 키페어를 만들어준다.&lt;/p&gt;
+
+&lt;p&gt;그 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;.ssh&lt;/code&gt; 디렉토리로 들어가보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 있는 것과 없는 것 두 가지가 있을텐데 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 있는 것을 복사해서 worker instance의 &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.ssh/authorized_keys&lt;/code&gt; 파일에 붙여넣기 해준다.&lt;/p&gt;
+
+&lt;p&gt;그 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;/.ssh&lt;/code&gt; 디렉토리의 권한은 700으로, &lt;code class=&quot;highlighter-rouge&quot;&gt;/.ssh/authorized_keys&lt;/code&gt;는 600으로 바꿔준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;클라우드 환경인 경우, 클라우드 제공자가 ssh 키를 따로 보관하는 경우가 있으니 참고&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;배포하기&quot;&gt;배포하기&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 jenkins 관리 페이지로 가서 Publish over SSH 플러그인을 설치 해준 후, 환경설정에서 맨아래 Publish over SSH의 Key 칸에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt;이 없었던 개인키를 복붙해주고 ssh servers에 Name은 임의로, Hostname은 worker instance의 주소, Username은 worker instance에서 사용하는 user 이름, Remote Directory는 웬만하면 home 디렉토리로 설정해서 저장.&lt;/p&gt;
+
+&lt;p&gt;다시 메인으로 가서 새로운 아이템 만들기, 프리스타일 프로젝트, 맨 아래 ‘빌드 후 조치’.&lt;/p&gt;
+
+&lt;p&gt;‘고급’ 클릭 후 verbose output in console을 체크, 그 다음 Exec command에 컨테이너 실행명령을 적어주자.&lt;/p&gt;
+
+&lt;p&gt;다음, 메인화면에서 Build Now를 누르면 빌드가 시작된다. 빌드가 완료되면 왼쪽아래에 무엇인가 떴을 것이다. #1 같이 뜬 것의 이름 옆 삼각형을 눌러 Console Output을 볼 수 있는데 이것을 보며 TroubleShooting 하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 스프링 같은 웹서버를 구동할 경우 정상 작동 중인데 빌드가 완료되지 않았다고 표시가 된다. 그럴 땐 다시 구성으로 가서 Exec command의 코드를&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nohup ... &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;로 수정하고 다시 실행 해보자. &lt;code class=&quot;highlighter-rouge&quot;&gt;nohup&lt;/code&gt;과 맨 뒤 &amp;amp;는 이 명령을 백그라운드로 실행시키겠다는 뜻이고, &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;명령은 표준에러를 표준출력으로 리다이렉트 시켜준다는 명령이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 도커로 컨테이너를 실행한다면 /var/run/docker.sock 관련 권한 오류가 나오는데, 이는 worker instance로 가서 &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod 666 /var/run/docker.sock&lt;/code&gt; 명령어를 실행시키면 해결된다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/29/Jenkins/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/29/Jenkins/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
+    
+      <item>
+        <title>GCP 이용 중 yum install error</title>
+        <description>&lt;h3 id=&quot;issue&quot;&gt;Issue&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Cloud Platform에서 Compute Engine 서비스로 CentOS 7 이용 중 yum install error가 발생하여 설치가 안되는 상황.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/1_bqgqeu.png&quot; alt=&quot;error&quot; /&gt;
+&lt;strong&gt;yum signature could not be verified&lt;/strong&gt;로 통칭되는 오류이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;steps-to-reproduce-the-issue&quot;&gt;Steps to reproduce the issue&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그저 GCP나 AWS Instance를 LinuxOS로 생성하고 yum, apt 등의 패키지 매니저를 통해 install 하려하면 등장한다.&lt;/p&gt;
+
+&lt;p&gt;stackoverflow에서 같은 오류를 겪은 사람이 어떻게 해결했나 보러 다녔는데, 항상 발생하는 것은 아니고 가끔씩 gpg key에 의해 발생하는 오류로 추정된다고 하더라.&lt;/p&gt;
+
+&lt;p&gt;GCP나 AWS Linux를 이용하다보면 드물게 발생한다는데…. 
+&lt;del&gt;이런건 왜 나만 걸리는 걸까&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;troubleshooting&quot;&gt;TroubleShooting&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;처음 접근은 에러메세지에서 추천하는 방법 중 &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo&lt;/code&gt; 옵션을 사용한 방법을 실행하였지만 같은 오류의 반복이었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;이 부분에서 에러메세지를 자세히 보지 않고 간과한 것이 빙 돌아가는 길의 시작이었다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;두번째로 gpg key를 몽땅 갈아엎고 새로 업데이트 시키자고 생각하여&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rpm --import &amp;lt;(curl -s -L https://packages.cloud.google.com/yum/doc/yum-key.gpg)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;명령으로 새로운 키를 받아와보려했으나 write body failed가 뜨면서 어려워졌다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;다시 오류메세지를 제대로 읽어보자고 생각, &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo=google-cloud-sdk&lt;/code&gt; 옵션을 이용하여 에러메세지를 띄우고 보았더니 &lt;code class=&quot;highlighter-rouge&quot;&gt;google-compute-engine&lt;/code&gt; 이라는 레포지토리가 하나 더 걸려서 에러가 지속되었던 것.&lt;/p&gt;
+
+&lt;p&gt;최종적으로&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum install wget --disablerepo=google-cloud-sdk,google-compute-engine -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;처럼 걸리는 레포지토리들을 전부 &lt;code class=&quot;highlighter-rouge&quot;&gt;--disablerepo&lt;/code&gt; 옵션으로 걸러내주니 정상 작동하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/2_nxe0jc.png&quot; alt=&quot;complete&quot; /&gt;
+&lt;em&gt;예에~&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 명령마다 저 옵션을 써주기엔 너무 번거로워서 조금 더 시간을 내어 완벽하게 오류를 고쳐보려했으나&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/3_udzgxq.png&quot; alt=&quot;find error&quot; /&gt;
+&lt;em&gt;(처절한 에러와의 싸움.png)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;고쳐지는건 나였고, 구글의 프로그래머 분들에게 떠넘기기로 했다. &lt;del&gt;헤헤&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;추가&quot;&gt;추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;글을 적으면서 문득 떠오른것이, ‘어 그럼 gpg 키 검사 안하면 되는거 아닌가?’&lt;/p&gt;
+
+&lt;p&gt;그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;--nogpgcheck&lt;/code&gt; 옵션으로 해봤더니 또 잘된다.&lt;/p&gt;
+
+&lt;p&gt;gpg key는 무엇이고 왜 없어도 잘 동작되는지 궁금해지기 시작했다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/29/GCP-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8C%E1%85%AE%E1%86%BC-yum-install-error/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/29/GCP-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8C%E1%85%AE%E1%86%BC-yum-install-error/</guid>
+        
+        
+        <category>Trouble-Shooting</category>
+        
+      </item>
+    
+      <item>
+        <title>SCOFE2021 Review</title>
+        <description>&lt;h2 id=&quot;21년-3월-23일-스코페-2021-리뷰&quot;&gt;21년 3월 23일 스코페 2021 리뷰&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;--나에게-대회-란&quot;&gt;- 나에게 “대회” 란&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;대학생 때의 나는 대회에 대해,&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;“입상의 가능성이 있을 때 나가는 것.”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;이라는 생각을 가지고 있었다.&lt;/p&gt;
+
+&lt;p&gt;항상 준비가 어느정도 되야 나가는 의미가 있다고 생각했다.&lt;/p&gt;
+
+&lt;p&gt;지금 생각하면 너무 아쉽고 왜 그렇게 생각하고 있었을까 하는 후회가 든다.&lt;/p&gt;
+
+&lt;p&gt;나도 믿기지 않는 사실이, 그동안 IT와 관련된 공모전, 대회, 콘테스트, 페스티벌 같은 활동에 관심도 없었고 참여도 하지 않았다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;어쩌면 그때의 나는 전공이 컴공임에도 불구하고 코딩에 흥미를 못느끼고 있었던 것일지도 모른다.&lt;/p&gt;
+
+&lt;p&gt;하지만 이번 스코페를 통해 인식이 바뀌었다.&lt;/p&gt;
+
+&lt;p&gt;그동안 참가에 의의를 두고 출전해서 뿌듯함을 느낀 것으론 축구, 게임 밖에 없었는데 코딩에서도 그것을 느끼니 굉장히 오묘한, 끝난 후에도 아드레날린이 솟구치는 느낌이랄까.&lt;/p&gt;
+
+&lt;p&gt;새로운 시작을 열리는 경험이 되었다.&lt;/p&gt;
+
+&lt;p&gt;그래서 이제는 대회에 대해&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;“새로운 분야에 발을 들이기 위한 엔진.”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;이라고 표현하고 싶다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;--소감&quot;&gt;- 소감?&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;재밌었다. 내 상황이 준비되지 않았음에도 불구하고.&lt;/p&gt;
+
+&lt;p&gt;대회를 마쳤음에도 마음에 불씨가 계속 피어올라 있었다.&lt;/p&gt;
+
+&lt;p&gt;주력 언어인 Java를 두고 코딩테스트를 위해 Python을 쓰자라고 결정하고, 3일동안 코드업 기초 100제와 모의테스트 문제만 풀고 출전하게 되었다.&lt;/p&gt;
+
+&lt;p&gt;3일동안 공부하며, 그리고 대회에서 코딩테스트를 진행하는 동안 Python의 능력에 감탄하고 하나씩 찾아 배워나가는 것이 제일 즐거웠다.&lt;/p&gt;
+
+&lt;p&gt;또한 오히려 유형에 대한 준비가 안되어있었기 때문에 한 문제 한 문제 풀어나갈 때마다 희열을 느꼈다.&lt;/p&gt;
+
+&lt;p&gt;하지만 많이 부족하다는 것도 동시에 느꼈다. 내가 나아가야할 길이 얼마나 남았는지 알 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;조금 더 정확하게, 조금 더 간결하게, 조금 더 빠르게&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;더 많은 유형을 풀어보며 업그레이드 해야겠다고 생각했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;--다음-계획&quot;&gt;- 다음 계획&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;4월 2일에 프로그래머스에서 열리는 DevMatching이 있다.&lt;/p&gt;
+
+&lt;p&gt;이번에도 마음은 가볍게 가져갈 생각이지만, 준비만큼은 조금 더 확실하게 하려고 한다.&lt;/p&gt;
+
+&lt;p&gt;코딩테스트가 될 수도 있고, 과제테스트가 될 수도 있다고 하던데 어느 쪽이던지 우선 신청을 하고 소식을 받아보면서 준비해 나갈 계획이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;어쩌면 졸업을 했기에 이렇게 경험을 할 수 있는 것 이었을지도.&lt;/p&gt;
+
+&lt;p&gt;이것이 나에게 계획된 시간표이기 때문에 지금부터 전력을 다 하면 되는 것이다.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 23 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/23/SCOFE2021-Review/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/23/SCOFE2021-Review/</guid>
+        
+        
+        <category>Planning-And-Reviewing</category>
+        
+      </item>
+    
+      <item>
+        <title>Cpu Stress Test -2</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;목차&quot;&gt;목차&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Artillery 설치&lt;/li&gt;
+	&lt;li&gt;Artillery를 사용해서 CPU Stress Test&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;artillery-설치&quot;&gt;Artillery 설치&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;오늘은 Artillery를 사용해서 우리가 만든 웹서버가 얼마나 많은 트래픽을 소화해낼 수 있는지 테스트해보았다.&lt;/p&gt;
+
+&lt;p&gt;내가 수많은 테스트 툴 중에서 Artillery를 선택한 이유는 다음 두 가지이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Http, websocket 프로토콜 지원&lt;/li&gt;
+  &lt;li&gt;시각화가 잘 되어 있어 한눈에 보기 편한 리포트 페이지 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;특히 리포트 페이지는 처음 열어보았을 때 너무 깔끔해서 놀랐을 정도.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://artillery.io/docs/guides/overview/why-artillery.html&quot;&gt;더 자세한 Artillery에 대한 정보&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;구글 번역을 이용할 경우 artillery가 “포병”으로 해석되서 나오니 주의.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;node.js , npm 설치&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Artillery를 설치하기 위해서는 node.js와 npm이 필수이다. 각각 아래의 명령어를 입력해서 설치.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	sudo apt install npm
+	sudo apt install nodejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Artillery 설치&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;다음으로 &lt;a href=&quot;https://artillery.io/docs/guides/getting-started/installing-artillery.html&quot;&gt;Artillery 공식 문서&lt;/a&gt; 를 참조하여 Artillery를 설치하자.&lt;/p&gt;
+
+&lt;p&gt;공식 문서에서는 -g (전역 설치) 옵션과 함께 1.6 버전을 설치하지만 나는 조금 다르게 설치하였다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	sudo npm install -D artillery@latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;프로세스가 끝나면 설치가 완료되었는지 artillery dino 명령을 사용해서 확인하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614778/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-03-01_nyfkpd.png&quot; alt=&quot;귀여운 공룡&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;artillery를-사용해서-cpu-stress-test&quot;&gt;Artillery를 사용해서 CPU Stress Test&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;지금부터는 Artillery를 본격적으로 사용하기 위해 VSCode를 사용하였다.&lt;/p&gt;
+
+&lt;p&gt;우선 open folder로 artillery 관련 산출물을 관리하기 위한 디렉토리를 하나 생성.&lt;/p&gt;
+
+&lt;p&gt;new file로 어떻게 테스트를 진행할지 구성하는 artillery-cpu-test.yaml 파일을 생성.&lt;/p&gt;
+
+&lt;p&gt;다음으로 &lt;a href=&quot;https://artillery.io/docs/guides/getting-started/installing-artillery.html&quot;&gt;Artillery 공식 문서&lt;/a&gt; 에서 core-concept 탭에 가서 맨 아래있는 기본 yaml 템플릿을 전부 복사 후 artillery-cpu-test.yaml에 붙여넣기 하고, 약간의 수정을 거쳤다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614780/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-25-53_plikpn.png&quot; alt=&quot;yaml 파일&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;수정 한 이유는 hash/{input} api를 통해 get 명령만 사용할 것 이므로 나머지는 전부 날렸다. (물론 중요한 두 부분은 빼고)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;address : 웹 서버 주소 (클라우드 외부 IP)&lt;/li&gt;
+  &lt;li&gt;durability : 지속시간&lt;/li&gt;
+  &lt;li&gt;?? : 지속시간동안 1초마다 트래픽 증가 수치&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;준비가 끝났으니 웹 서버를 켜주고, 아래 명령을 입력하여 테스트를 시작하자.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	artillery run --output report.json artillery-cpu-test.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614781/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-18_u0r4ft.png&quot; alt=&quot;테스트 중...&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;테스트가 끝나고나면 왼쪽에 지정해준 이름대로 json 파일이 생성된다. 나는 report.json으로 했으니 테스트가 잘 끝났음을 보여준다.&lt;/p&gt;
+
+&lt;p&gt;하지만 json 파일 만으로는 테스트가 어땠는지 파악하기 어려우니 아래 명령어를 입력해서 리포트 페이지를 열었다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	artillery report report.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614782/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-55_hpzhuh.png&quot; alt=&quot;리포트페이지&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이와같이 깔끔하게 테스트 결과를 시각화해준다. 보아하니 서버가 그냥저냥 거뜬히 견딜 정도의 트래픽이었나보다.&lt;/p&gt;
+
+&lt;p&gt;여기서 특히 P95의 수치에 집중하였다. 서버의 비용과 유저의 만족도 간 최고의 효율을 낼 수 있는 비율이 95%라고 한다.&lt;/p&gt;
+
+&lt;p&gt;다음은 서버가 적당히 스트레스를 받을 정도의 부하를 줘 보자. 트래픽을 초당 15로 수정 후 report-15.json으로 다시 진행하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615614783/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-36-32_qc0cfs.png&quot; alt=&quot;리포트페이지-15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;900 정도의 트래픽이 몰리니 에러도 나오고 지연 시간이 꽤 오래 걸리기 시작했다. 거의 마지막에는 1만 ms 를 넘겼는데 이는 대충 10초가 지나야 응답이 온다는 뜻이다. 내 입장에선 10 초 정도면 나름 견딜만 한 시간인데 전체 유저 입장에서 보면 적당한 것 일까 하는 의문이 든다.&lt;/p&gt;
+
+&lt;p&gt;비용이 많다면 유저를 만족시키는 정확한 성능을 찾는 것이 중요하겠지만, 비용이 제한된 상황에서라면 어떤 지침을 따르는 것이 맞을지 찾아보았는데 다음 세 가지를 만족하는 방향을 찾으면 된다고 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;예상 TPS보다 여유롭게. 예상 3000이라면 적어도 4000이상&lt;/li&gt;
+  &lt;li&gt;기대 Latency를 만족할 때 까지&lt;/li&gt;
+  &lt;li&gt;Scale-out을 해도 성능이 높아지지 않는다면 병목을 의심&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이상으로 CPU Stress Test 포스팅을 마무리한다. 처음해본 배포, 처음해본 부하 테스트 였는데 작지만 내가 만든 애플리케이션이 클라우드를 통해 배포되고, 많은 트래픽이 오는 상황을 예측해볼 수 있다니 두근거리는 경험이었다. 후에 이 경험을 살려 실제로 내가 회사나 개인 프로젝트를 띄워서 관리 중일 때 얼마나 많은 트래픽을 견뎌낼 수 있을지 테스트할 수 있을 것 같다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/15/Cpu-Stress-Test-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/15/Cpu-Stress-Test-2/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
+    
+      <item>
+        <title>KT Cloud TroubleShooting (ubuntu account)</title>
+        <description>&lt;h3 id=&quot;리눅스-os-ubuntu에서-kt-cloud-instance-os-ubuntu-ssh-접속-문제&quot;&gt;리눅스 OS (ubuntu)에서 KT Cloud Instance OS (ubuntu) ssh 접속 문제&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Description&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;KT Cloud의 D1을 이용하다가, 사용 중인 노트북의 os가 ubuntu였기 때문에 시작된 문제이다. ssh 접속 시 openssh의 버전에 따라 client에서의 접속이 차단 될 수 있다는 점을 새로 알게되었고, KT Cloud 기술 문서에서 오점을 찾아내었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Error Code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ubuntu에서 ssh 명령어로 원격 접속하려 했으나 Connection Closed 됨.&lt;/p&gt;
+
+&lt;p&gt;Windows에서 putty를 이용해 접속하려 했으나 not existing current key 출력 됨.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TroubleShooting&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Connection Closed가 되었다는건 연결은 되나 무언가의 오류로 인해 연결을 막고 있다는 뜻으로 해석했다.&lt;/p&gt;
+
+&lt;p&gt;그리고 언제나 나를 괴롭혀왔던 버전문제… 이번에도 역시나였다. (&lt;del&gt;운이 좋았다. 헤헤&lt;/del&gt;)&lt;/p&gt;
+
+&lt;p&gt;client와 server의 버전이 다를 경우 ssh 접속이 차단되는지 구글링을 시작하였고, 얻어낸 답은&lt;/p&gt;
+
+&lt;p&gt;ssh는 client의 버전이 server 버전보다 높을 경우 Connection Closed로 접속을 차단한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그래서 Windows로 먼저 접속해서 openssh의 버전을 update하고 다시 ubuntu로 시도해보기로 했다.&lt;/p&gt;
+
+&lt;p&gt;그런데 Windows로 접속 시도 중 예상치 못하게 키페어가 없다는 오류가 뜨면서 막막해지기 시작했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1615814654/ScreenShots/21-03-05/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-15_22-12-33_ranxex.png&quot; alt=&quot;KT Cloud User Guide&quot; title=&quot;너 때문이야&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;공식 기술 문서를 다시 읽어보고 여러번 시도해보고 실패하고 반복하던 도중, 기술 문서에는 ubuntu os 는 계정명을 ubuntu으로 사용하라는 문장을 발견.&lt;/p&gt;
+
+&lt;p&gt;설마… 하는 느낌이 와서 계정을 ubuntu가 아닌 root로 바꿔보았다. CentOS는 root 로그인이 가능한데 ubuntu는 따로 언급이 없다는 것이 흠칫했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;접속에 성공했다…..&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;허무했다. 하지만 기술 문서에서 보완할 점을 하나 찾았다는 것이 꽤 뿌듯했다. 앞으로 클라우드 서버를 자주 이용하게 될테니 신고식 한 번한 셈 쳐야겠다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 05 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/05/KT-Cloud-TroubleShooting/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/05/KT-Cloud-TroubleShooting/</guid>
+        
+        
+        <category>Trouble-Shooting</category>
+        
+      </item>
+    
+      <item>
+        <title>Cpu Stress Test -1</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;목차&quot;&gt;목차&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;I/O Burst, I/O Bound VS CPU Burst, CPU Bound&lt;/li&gt;
+	&lt;li&gt;Hash를 이용해서 CPU를 극단적으로 사용하기 (feat. Spring Boot)&lt;/li&gt;
+	&lt;li&gt;GCP 인스턴스에 배포&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;io-burst-io-bound-vs-cpu-burst-cpu-bound&quot;&gt;I/O Burst, I/O Bound VS Cpu Burst, Cpu Bound&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;I/O Burst와 I/O Bound는 무엇이고, Cpu Burst와 Cpu Bound는 무엇일까?&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이를 설명하기 위해서는 우선 프로세스가 처리되는 과정을 먼저 알아야한다.
+그 전에 프로그램과 프로세스의 차이점부터 짚고 넘어가자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;프로그램&lt;/strong&gt; : 하드에 저장되어 있는 Application &lt;br /&gt;
+&lt;strong&gt;프로세스&lt;/strong&gt; : 메모리에 적재되어 있는 프로그램&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 메모리에 적재되어 처리를 기다리고 있는 프로세스들을 처리하는 순서를 &lt;strong&gt;프로세스 스케줄링&lt;/strong&gt;이라 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 프로세스 스케줄링에 따라 프로세스들은 CPU에 의해 처리되는데, 이 때 CPU에 I/O(input/output)되는 시간을 &lt;strong&gt;I/O Burst&lt;/strong&gt;, CPU가 프로세스를 처리하는 시간을 &lt;strong&gt;CPU Burst&lt;/strong&gt;라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 I/O Burst가 큰 프로그램을 &lt;strong&gt;I/O Bound&lt;/strong&gt;, CPU Burst가 큰 프로그램을 &lt;strong&gt;CPU Bound&lt;/strong&gt;라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;나는 GCP CPU 테스트를 위해 CPU Burst가 높은 간단한 프로그램을 만들었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;hash를-이용해서-cpu를-극단적으로-사용하기&quot;&gt;Hash를 이용해서 CPU를 극단적으로 사용하기&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래와 같은 코드를 참조하여 hash (md5)를 이용하는 프로그램을 작성하였다.&lt;/p&gt;
+
+&lt;p&gt;hash가 무엇인지 궁금하다면?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@yeon22/crypto-%ED%95%B4%EC%8B%9C-hash-%EB%9E%80-6962be197523&quot;&gt;해시에 대해&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;’'’java
+	import org.springframework.web.bind.annotation.PathVariable;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.RestController;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+@RestController
+public class HashController {
+
+	@RequestMapping(&quot;/hash/{input}&quot;)
+	public String getDigest(@PathVariable(&quot;input&quot;) String input) throws NoSuchAlgorithmException {
+	    for(int i = 0; i &amp;lt; 100_000; i++) {
+	        input = getMD5Digest(input);
+	    }
+	    return input;
+	}
+
+	@RequestMapping(&quot;/hello&quot;)
+	public String hello() {
+	    return &quot;hello&quot;;
+	}
+
+	private String getMD5Digest(String input) throws NoSuchAlgorithmException {
+	    MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);
+	    md.update(input.getBytes());
+	    byte[] digest = md.digest();
+	    String myHash = DatatypeConverter
+	            .printHexBinary(digest).toUpperCase();
+
+	    return myHash;
+	}
+} '''
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;참조 : https://github.com/lleellee0/cpu-bound-application &lt;br /&gt;
+–추가사항 : 충돌 방지를 위해 application.properties 파일에서 server.port 를 80으로 설정해줘야 한다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;/hash/{input} 과 /hello 두 가지 매핑이 있고, input에 들어온 문자열을 10만번 해시 연산한 결과를 반환한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;ERROR FIX&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;JDK8이 아닌 다른 버전을 쓸 경우 DataTypeConverter를 찾지 못하는 오류가 있었다.&lt;/p&gt;
+
+&lt;p&gt;나는 11로 하고 있었기 때문에 해당 패키지가 제외되어있던 상태라 의존성을 추가해주어야 했다.&lt;/p&gt;
+
+&lt;p&gt;’'’xml
+	&lt;dependency&gt;
+		&lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
+		&lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
+		&lt;version&gt;2.3.1&lt;/version&gt;
+	&lt;/dependency&gt;
+‘’’&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;gcp-인스턴스에-배포&quot;&gt;GCP 인스턴스에 배포&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;1 intelliJ 우측에서 maven 탭을 통해 .jar 파일을 만든다. (Maven -&amp;gt; Lifecycle -&amp;gt; deploy 더블클릭으로 생성!)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;익숙했던 maven 이지만 처음 알았던 내용인 만큼 조금 충격이었달까…
+그동안 배포를 한번도 안해봐서 .jar 파일을 만들 생각도, 만들어 볼 못했지만 
+이렇게해서 배포가 이루어 진다는 것을 배웠을 때 굉장히 희열을 느꼈다.
+( &lt;del&gt;생각해보니까 패키지 매니저인데 의존성 관리만 하고 패키징을 제대로 해본 적이 없었네…&lt;/del&gt; )&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2 깃허브 Repo에 push.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;3 GCP 인스턴스에 가서 wget [repo에 저장된 .jar파일 주소]을 사용해 인스턴스에 다운로드.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;나는 CentOS를 설치했기 때문에 yum install wget을 통해 wget 설치하였다. &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;GCP 는 한 계정당 3달간 300달러 무료 크레딧을 지급한다. 초과 시 과금되니 계정관리 필수 !! &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;GCP 인스턴스 생성에 대해서는 생략한다. &lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;4 sudo java -jar [다운받은 .jar 파일명] 명령어를 통해 실행 테스트!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://res.cloudinary.com/danhdvla9/image/upload/v1614939147/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-05_19-07-13_m3hhzt.png&quot; alt=&quot;GCP instance&quot; title=&quot;구동테스트&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;정상적으로 실행되는 모습이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;스트레스 테스트를 위한 과정 중 중간까지 왔다. 이제 준비가 다 되었고 스트레스 테스트하는 일만 남았는데 준비하는 과정만해도 새로이 배우는 것들이 많아서 굉장히 재미있었다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;다음 포스팅에서는 스트레스 테스트 툴 중 하나인 Artillery를 이용하여 테스트 결과를 출력해보자.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 03 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021/03/03/Cpu-Stress-Test/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/03/Cpu-Stress-Test/</guid>
+        
+        
+        <category>Back-End-Study</category>
+        
+      </item>
+    
+  </channel>
+</rss>
