@@ -1,0 +1,123 @@
+---
+layout: post	
+title: "Jenkins 사용 정리"
+date: 2021-03-29
+categories:
+  - Back-End-Study
+description:
+image: https://res.cloudinary.com/danhdvla9/image/upload/v1617008667/Thumbnails/jenkins_vhzpmh.png
+image-sm: https://res.cloudinary.com/danhdvla9/image/upload/v1617008667/Thumbnails/jenkins_vhzpmh.png
+image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png
+---
+
+<br>
+<br>
+
+## Jenkins 개념, 설치 및 실행 정리
+
+
+<br>
+<br>
+
+#### Jenkins 란? 
+
+<br>
+<br>
+
+소프트웨어 개발 시 지속적으로 통합서비스를 제공해주는, CI(Continuous Integration)툴 이다.
+
+Git과 같은 버전관리시스템과 연동하여 커밋을 감지하면 자동빌드/배포 되도록 설정할 수 있다.
+
+하지만 커밋은 매우 빈번히 일어나기 때문에 작업이 큐잉되어 빌드되는 것이 일반적이다.
+
+이러한 자동화 작업은 다음과 같은 이점이 있다.
+
+ - 프로젝트 표준 컴파일 환경에서의 컴파일 오류 검출
+ - 자동화 테스트 수행
+ - 정적 코드 분석에 의한 코딩 규약 준수여부 확인
+ - 프로파일링 툴을 이용한 성능 변화 모니터링
+ - 결합 테스트 환경에 대한 배포작업
+ - 각종 배치 작업의 간략화
+ 
+Jenkins는 또한 플러그인을 간단히 인스톨 할 수 있는 기능을 제공하고 있어 자신에게 필요한 기능을 손쉽게 사용가능하다. 혹여나 기능이 없다면 파이썬과 같은 스크립트를 이용해 추가 할 수도 있다.
+
+<br>
+<br>
+
+#### Jenkins 설치
+
+<br>
+<br>
+
+jenkins는 yum 명령어로 설치되지 않는다. 그래서 다음 명령들을 실행해야한다.
+
+OS 환경은 CentOS7 이다.
+
+```
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+```
+
+그다음 `sudo yum install jenkins` 명령을 치면 설치가 잘 된다. 
+
+설치 후에는 잊지말고 `sudo systemctl start jenkins`로 daemon을 실행시켜주자.
+
+또는 DockerHub에서 이미지를 다운받아 Docker로 실행하는 방법도 있다. 이에 대한 설명은 생략한다.
+
+<br>
+<br>
+
+#### Jenkins 실행
+
+<br>
+<br>
+
+jenkins는 기본으로 8080포트를 사용한다. 클라우드 환경이라면 외부 IP:8080, 로컬이라면 localhost:8080 으로 접속하면 비밀번호를 입력하라는 창이 나온다.
+
+창에 나와있는 경로로 가면 비밀번호가 있으니 복붙해서 접속하면 플러그인 설치가이드가 나온다.
+
+왼쪽은 일반설치, 오른쪽은 매뉴얼 설치인데 만약 설치 중 계속 installation fail이 뜨고 그냥 넘어가거나 재시도 해야하는 상황이 되었다면 **버전**문제이므로 최신 버전을 설치해주자.
+
+<br>
+<br>
+
+설치가 완료 후 jenkins가 안전하게 worker instance에 접속할 수 있도록, 그리고 다른 접속을 막기위해 ssh-key-pair를 이용해 비대칭키를 만들어 적용한다.
+
+우선 jenkins server terminal에서 `ssh-keygen -t rsa -f ~/.ssh/id_rsa` 명령어로 키페어를 만들어준다.
+
+그 후 `.ssh` 디렉토리로 들어가보면 `.pub`이 있는 것과 없는 것 두 가지가 있을텐데 `.pub`이 있는 것을 복사해서 worker instance의 `~/.ssh/authorized_keys` 파일에 붙여넣기 해준다.
+
+그 후 `/.ssh` 디렉토리의 권한은 700으로, `/.ssh/authorized_keys`는 600으로 바꿔준다.
+
+**클라우드 환경인 경우, 클라우드 제공자가 ssh 키를 따로 보관하는 경우가 있으니 참고**
+
+<br>
+<br>
+
+#### 배포하기
+
+<br>
+<br>
+
+이제 jenkins 관리 페이지로 가서 Publish over SSH 플러그인을 설치 해준 후, 환경설정에서 맨아래 Publish over SSH의 Key 칸에 `.pub`이 없었던 개인키를 복붙해주고 ssh servers에 Name은 임의로, Hostname은 worker instance의 주소, Username은 worker instance에서 사용하는 user 이름, Remote Directory는 웬만하면 home 디렉토리로 설정해서 저장.
+
+다시 메인으로 가서 새로운 아이템 만들기, 프리스타일 프로젝트, 맨 아래 '빌드 후 조치'.
+
+'고급' 클릭 후 verbose output in console을 체크, 그 다음 Exec command에 컨테이너 실행명령을 적어주자.
+
+다음, 메인화면에서 Build Now를 누르면 빌드가 시작된다. 빌드가 완료되면 왼쪽아래에 무엇인가 떴을 것이다. #1 같이 뜬 것의 이름 옆 삼각형을 눌러 Console Output을 볼 수 있는데 이것을 보며 TroubleShooting 하면 된다.
+
+<br>
+
+만약 스프링 같은 웹서버를 구동할 경우 정상 작동 중인데 빌드가 완료되지 않았다고 표시가 된다. 그럴 땐 다시 구성으로 가서 Exec command의 코드를 
+
+
+`nohup ... > /dev/null 2>&1 &`
+
+로 수정하고 다시 실행 해보자. `nohup`과 맨 뒤 &는 이 명령을 백그라운드로 실행시키겠다는 뜻이고, `/dev/null 2>&1`명령은 표준에러를 표준출력으로 리다이렉트 시켜준다는 명령이다.
+
+<br>
+
+또한 도커로 컨테이너를 실행한다면 /var/run/docker.sock 관련 권한 오류가 나오는데, 이는 worker instance로 가서 `chmod 666 /var/run/docker.sock` 명령어를 실행시키면 해결된다.
+
+

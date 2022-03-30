@@ -1,0 +1,225 @@
+---
+layout: post	
+title: "About me"
+date: 2021-03-01
+categories:
+  - About-me
+description:
+image: https://res.cloudinary.com/danhdvla9/image/upload/v1621929092/Thumbnails/bg_dlt1xv.png
+image-sm: https://res.cloudinary.com/danhdvla9/image/upload/v1621929092/Thumbnails/bg_dlt1xv.png
+image-me: https://res.cloudinary.com/danhdvla9/image/upload/v1614694302/Blacksmith_vqd5bz.png
+---
+
+<br>
+<br>
+
+![Profile](https://res.cloudinary.com/danhdvla9/image/upload/v1621928722/Thumbnails/resume_tvijzh.png)
+
+<br>
+<br>
+
+#### Career
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+경력 사항 없음.
+
+<br>
+<br>
+
+#### Projects
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+<ul>
+	<li>"JARA-DreamFairy" 수면 패턴 유도 Android Application 개발</li>
+	<li>간단한 Hash, DB Post 프로그램을 이용한 대규모 트래픽 스트레스 테스트</li>
+	<li>페이스북 클론 코딩 웹 백엔드 스터디 참여</li>
+</ul>
+
+<br>
+<br>
+
+**"JARA-DreamFairy" 수면 패턴 유도 Android Application 개발**  
+
+- 코로나의 영향으로 재택 근무와 온라인 수업을 시행하면서 수면 패턴이 망가진 현대인을 위한 방치형 RPG 게임을 개발하였습니다.
+- 활동 : 팀장. splash activity와 login activity 개발 및 전체적인 Firebase 활용 코드 작성.
+- 기술스택 : JAVA, Android Studio, Firebase, Git & GitHub, (Adobe Photoshop)
+
+<br>
+
+**간단한 Hash, DB Post 프로그램을 이용한 대규모 트래픽 스트레스 테스트**  
+
+- GCP를 이용하여 Kubernetes 환경을 구축하고 Jenkins를 이용하여 CI/CD 자동화, HorizontalPodAutoscaler와 GCP 인스턴스 자동 확장을 이용하여 대규모 트래픽 테스팅을 진행한 프로젝트입니다.
+- 활동 : GCP와 Kubernetes이용하여 Auto Scale-out 환경 구축 (node는 2개), Nginx를 활용하여 Load Balancer 구축. Jenkins와 Github Webhook을 이용하여 Push시 자동 패키징 및 무중단 배포. Artillery를 활용하여 스트레스 테스트.
+- 기술스택 : Kubernetes, Docker & DockerHub, GCP, Jenkins, Nginx, JAVA, Spring, Git & GitHub, Artillery
+
+<br>
+
+**웹 백엔드 스터디 페이스북 클론 코딩**  
+
+- 스프링을 더욱 심화하기 위해 모인 스터디에서 페이스북의 주요 기능들을 구현해 보는 것을 목표로 공부.
+- 활동 : Spring MVC 패턴에 맞춰 프로젝트 구성, JWT, 비즈니스 로직 구현
+- 기술스택 : JAVA, Spring Boot
+
+<br>
+<br>
+
+#### Experience
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+<ul>
+	<li>"쉽게 배우는 소프트웨어 공학 - 김치수 저" Design Pattern 파트 예시코드 작성 및 집필 도움</li>
+	<li>K-mooc "쉽게 배우는 소프트웨어 공학" TA</li>
+	<li>"Ziktalk" 엠버서더 및 테스터 활동</li>
+	<li>Youtube Channel "따배런" 기획도움 및 편집자</li>
+	<li>고등, 대학생 대상 IT Internship 부팀장으로 인턴쉽 활동</li>
+</ul>
+
+<br>
+<br>
+
+**"쉽게 배우는 소프트웨어 공학 - 김치수 저" Design Pattern 파트 예시코드 작성 및 집필 도움**
+
+- "쉽게 배우는 소프트웨어 공학" 책의 Design Pattern과 관련된 예시 코드들의 작성과 집필을 도와드렸습니다. 
+- 코드는 모두 JAVA로 작성하였습니다. 여러가지 패턴의 장단점과 특징들에 대해 공부할 수 있었습니다.
+
+<br>
+
+**K-mooc "쉽게 배우는 소프트웨어 공학" TA**
+
+- K-mooc "쉽게 배우는 소프트웨어 공학" 강의의 TA(교육 어시스턴트)를 한 학기동안 전담하였습니다.
+
+<br>
+
+**"Ziktalk" 엠버서더 및 테스터 활동**
+
+- "Ziktalk" 애플리케이션을 테스팅하며 언어교류활동 및 홍보활동을 하였습니다. 
+- 앱 내의 문제점을 피드백하며 개발자와 소통하고 해결책에 대해 토론하였습니다.
+
+<br>
+
+**Youtube Channel "따배런" 기획도움 및 편집자**
+
+- "[따배런](https://www.youtube.com/channel/UC_VOQjI7mtQTEaTXXQIzLtQ)" 채널의 공동 편집자로 활동하고있습니다. 
+- Kubernetes와 Docker, Shell script, Linux(미공개)와 관련된 강의를 편집하면서 테스팅해보며 공부하고 있습니다.
+
+<br>
+
+**고등, 대학생 대상 IT Internship 부팀장으로 인턴쉽 활동**
+
+- IT에 관심있거나 IT 관련 학과에 재학중인 고등, 대학생을 대상으로 인턴쉽을 진행하고 있습니다. 
+- CS 전공기초지식과 Java, Python 기초 및 Git을 통한 협업 등에 대한 지식을 공유합니다.
+
+<br>
+<br>
+
+#### Certificate
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+<ul>
+	<li>정보처리기사</li>
+	<li>JLPT N1</li>
+</ul>
+
+<br>
+<br>
+
+#### Skills
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+**Language**
+
+<br>
+
+![Java](https://res.cloudinary.com/danhdvla9/image/upload/v1621880636/Stacks/java_u3h4go.png)
+![Python](https://res.cloudinary.com/danhdvla9/image/upload/v1621880636/Stacks/py_xss4zf.png)
+![C](https://res.cloudinary.com/danhdvla9/image/upload/v1621880635/Stacks/c_jxdaof.png)
+![C++](https://res.cloudinary.com/danhdvla9/image/upload/v1621880635/Stacks/c_drykpc.png)
+![HTML/CSS](https://res.cloudinary.com/danhdvla9/image/upload/v1621931101/Stacks/html-css_tgvdx8.png)
+![Javascript](https://res.cloudinary.com/danhdvla9/image/upload/v1621880636/Stacks/js_j0xtbg.png)
+
+**Server Side**
+
+<br>
+
+![Spring](https://res.cloudinary.com/danhdvla9/image/upload/v1621880636/Stacks/spring_fpjsjm.png)
+![Node.js](https://res.cloudinary.com/danhdvla9/image/upload/v1621880635/Stacks/node_cage37.png)
+
+**Mobile**
+
+![Android](https://res.cloudinary.com/danhdvla9/image/upload/v1621930107/Stacks/android_o1v5ke.png)
+
+**DevOps**
+
+![Kubernetes](https://res.cloudinary.com/danhdvla9/image/upload/v1621880635/Stacks/k8s_ecdpv3.png)
+![Docker](https://res.cloudinary.com/danhdvla9/image/upload/v1621880636/Stacks/docker_lmxah1.png)
+
+<br>
+<br>
+
+#### Awards
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+**전공 캡스톤 프로젝트 학술제 은상 (3위)**			2020.11.13
+공주대학교
+
+<br>
+<br>
+
+#### Education
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+<ul>
+	<li>2012 ~ 2014  부광고등학교</li>
+	<li>2015 ~ 2021  공주대학교 소프트웨어전공</li>
+</ul>
+
+※ 2016 ~ 2018 공군 만기 전역
