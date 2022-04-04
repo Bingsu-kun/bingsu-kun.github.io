@@ -1,16 +1,16 @@
 # Configurations
-title:            Jekyll Gitbook
-longtitle:        Jekyll Gitbook
-author:           HE Tao
-email:            sighingnow@gmail.com
+title:            Forge
+longtitle:        Hephai's Forge
+author:           Hephai - Janghun Lee
+email:            icetime963@gmail.com
 description: >
-  Build Jekyll site with the GitBook style.
+  Hephai's Dev & Life Blog.
 
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://sighingnow.github.io'
-baseurl:          '/jekyll-gitbook'
+url:              'https://bingsu-kun.github.io'
+baseurl:          '/forge'
 rss:              RSS
 
 toc:
