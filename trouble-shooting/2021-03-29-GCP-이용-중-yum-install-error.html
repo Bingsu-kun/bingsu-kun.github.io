@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Forge</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>GCP 이용 중 yum install error · Forge</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Hephai's Dev & Life Blog.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Hephai - Janghun Lee"><link rel="stylesheet" href="//gitbook/style.css">
 <link rel="stylesheet" href="//gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,9 +30,11 @@
     };
 </script>
 
+            <link rel="prev" href="//back-end-study/2021-03-29-Jenkins.html" />
+        
 
         
-            <link rel="next" href="//back-end-study/2021-03-03-Cpu-Stress-Test.html" />
+            <link rel="next" href="//back-end-study/2021-04-01-Nginx-(Load-Balancer).html" />
         
     </head>
     <body>
@@ -156,12 +158,15 @@
                         </li>
                     
                         
-                        <li class="chapter" data-level="1.1" data-path="//trouble-shooting/2021-03-29-GCP-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8C%E1%85%AE%E1%86%BC-yum-install-error.html">
+                        <li class="chapter active" data-level="1.2" data-path="//trouble-shooting/2021-03-29-GCP-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8C%E1%85%AE%E1%86%BC-yum-install-error.html">
                         
                             <a href="//trouble-shooting/2021-03-29-GCP-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%AD%E1%86%BC-%E1%84%8C%E1%85%AE%E1%86%BC-yum-install-error.html">
                                 GCP 이용 중 yum install error
                             </a>
                             
+                                
+                                    <ul><li><a href="#issue">Issue</a></li><li><a href="#steps-to-reproduce-the-issue">Steps to reproduce the issue</a></li><li><a href="#troubleshooting">TroubleShooting</a></li><li><a href="#추가">추가</a></li></ul>
+
                                 
                             
                         </li>
@@ -250,7 +255,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >Forge</a>
+                            <a href="." >GCP 이용 중 yum install error</a>
                         
                     </h1>
                 </div>
@@ -262,29 +267,96 @@
                 <section class="normal markdown-section">
 
                     
-                        <h1 id="">Forge</h1>
+                        <h1 id="/trouble-shooting/GCP-이용-중-yum-install-error">GCP 이용 중 yum install error</h1>
                     
 
-                    <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                    <h3 id="issue">Issue</h3>
 
-<div class="container">
-  <h1>404</h1>
+<p><br />
+<br /></p>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<p>Google Cloud Platform에서 Compute Engine 서비스로 CentOS 7 이용 중 yum install error가 발생하여 설치가 안되는 상황.</p>
+
+<p><br /></p>
+
+<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/1_bqgqeu.png" alt="error" />
+<strong>yum signature could not be verified</strong>로 통칭되는 오류이다.</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="steps-to-reproduce-the-issue">Steps to reproduce the issue</h3>
+
+<p><br />
+<br /></p>
+
+<p>그저 GCP나 AWS Instance를 LinuxOS로 생성하고 yum, apt 등의 패키지 매니저를 통해 install 하려하면 등장한다.</p>
+
+<p>stackoverflow에서 같은 오류를 겪은 사람이 어떻게 해결했나 보러 다녔는데, 항상 발생하는 것은 아니고 가끔씩 gpg key에 의해 발생하는 오류로 추정된다고 하더라.</p>
+
+<p>GCP나 AWS Linux를 이용하다보면 드물게 발생한다는데…. 
+<del>이런건 왜 나만 걸리는 걸까</del></p>
+
+<p><br />
+<br /></p>
+
+<h3 id="troubleshooting">TroubleShooting</h3>
+
+<p><br />
+<br /></p>
+
+<p>처음 접근은 에러메세지에서 추천하는 방법 중 <code class="language-plaintext highlighter-rouge">--disablerepo</code> 옵션을 사용한 방법을 실행하였지만 같은 오류의 반복이었다.</p>
+
+<p><em>이 부분에서 에러메세지를 자세히 보지 않고 간과한 것이 빙 돌아가는 길의 시작이었다.</em></p>
+
+<p><br /></p>
+
+<p>두번째로 gpg key를 몽땅 갈아엎고 새로 업데이트 시키자고 생각하여</p>
+
+<p><code class="language-plaintext highlighter-rouge">rpm --import &lt;(curl -s -L https://packages.cloud.google.com/yum/doc/yum-key.gpg)</code></p>
+
+<p>명령으로 새로운 키를 받아와보려했으나 write body failed가 뜨면서 어려워졌다.</p>
+
+<p><br /></p>
+
+<p>다시 오류메세지를 제대로 읽어보자고 생각, <code class="language-plaintext highlighter-rouge">--disablerepo=google-cloud-sdk</code> 옵션을 이용하여 에러메세지를 띄우고 보았더니 <code class="language-plaintext highlighter-rouge">google-compute-engine</code> 이라는 레포지토리가 하나 더 걸려서 에러가 지속되었던 것.</p>
+
+<p>최종적으로</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum install wget --disablerepo=google-cloud-sdk,google-compute-engine -y
+</code></pre></div></div>
+
+<p>처럼 걸리는 레포지토리들을 전부 <code class="language-plaintext highlighter-rouge">--disablerepo</code> 옵션으로 걸러내주니 정상 작동하였다.</p>
+
+<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/2_nxe0jc.png" alt="complete" />
+<em>예에~</em></p>
+
+<p>하지만 명령마다 저 옵션을 써주기엔 너무 번거로워서 조금 더 시간을 내어 완벽하게 오류를 고쳐보려했으나</p>
+
+<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1616996607/ScreenShots/21-03-29/3_udzgxq.png" alt="find error" />
+<em>(처절한 에러와의 싸움.png)</em></p>
+
+<p><br /></p>
+
+<p>고쳐지는건 나였고, 구글의 프로그래머 분들에게 떠넘기기로 했다. <del>헤헤</del></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h3 id="추가">추가</h3>
+
+<p><br />
+<br /></p>
+
+<p>글을 적으면서 문득 떠오른것이, ‘어 그럼 gpg 키 검사 안하면 되는거 아닌가?’</p>
+
+<p>그래서 <code class="language-plaintext highlighter-rouge">--nogpgcheck</code> 옵션으로 해봤더니 또 잘된다.</p>
+
+<p>gpg key는 무엇이고 왜 없어도 잘 동작되는지 궁금해지기 시작했다.</p>
+
 
                 </section>
             </div><div class="search-results">
@@ -299,7 +371,13 @@
     </div>
 </div>
 
-                        <a href="//back-end-study/2021-03-03-Cpu-Stress-Test.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Cpu Stress Test -1">
+                        <a href="//back-end-study/2021-03-29-Jenkins.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jenkins 사용 정리">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                        <a href="//back-end-study/2021-04-01-Nginx-(Load-Balancer).html" class="navigation navigation-next navigation-unique" aria-label="Next page: Nginx Load Balancer">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     
@@ -315,14 +393,12 @@
         "level": "1.1",
         "depth": 1,
         
-
-        
         "next": {
-            "title": "Cpu Stress Test -1",
+            "title": "Nginx Load Balancer",
             "level": "1.2",
             "depth": 1,
-            "path": "_posts/CS/2021-03-02-Cpu-Stress-Test.markdown",
-            "ref": "_posts/CS/2021-03-02-Cpu-Stress-Test.markdown",
+            "path": "_posts/CS/2021-04-01-Nginx-(Load Balancer).markdown",
+            "ref": "_posts/CS/2021-04-01-Nginx-(Load Balancer).markdown",
             "articles": []
         },
         
@@ -397,8 +473,8 @@
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
-        "mtime": "",
+        "path": "_posts/TroubleShooting/2021-03-29-GCP-이용-중-yum-install-error.markdown",
+        "mtime": "2021-03-29 00:00:00 +0900",
         "type": "markdown"
     },
     "gitbook": {
