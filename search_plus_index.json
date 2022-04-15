@@ -1,9 +1,4 @@
-{"/pages/design/draft/": {
-    "title": "Design Draft",
-    "keywords": "Jekyll",
-    "url": "/pages/design/draft/",
-    "body": "This is an draft page."
-  },"/pages/about/": {
+{"/pages/about/": {
     "title": "About",
     "keywords": "Jekyll",
     "url": "/pages/about/",
