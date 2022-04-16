@@ -1,5 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-15T17:59:51+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Forge</title><subtitle>Hephai&apos;s Dev &amp; Life Blog.
-</subtitle><author><name>Hephai - Janghun Lee</name></author><entry><title type="html">검색 속도 향상을 위한 Elastic Search 도입</title><link href="http://localhost:4000/back-end-study/2021-06-28-Elastic-Search.html" rel="alternate" type="text/html" title="검색 속도 향상을 위한 Elastic Search 도입" /><published>2021-06-28T00:00:00+09:00</published><updated>2021-06-28T00:00:00+09:00</updated><id>http://localhost:4000/back-end-study/Elastic-Search</id><content type="html" xml:base="http://localhost:4000/back-end-study/2021-06-28-Elastic-Search.html"><![CDATA[<p><br />
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-16T17:12:52+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Forge</title><subtitle>Hephai&apos;s Dev &amp; Life Blog.
+</subtitle><author><name>Hephai - Janghun Lee</name></author><entry><title type="html">Process and Thread</title><link href="http://localhost:4000/cs-study/2022-03-20-Process-and-Thread.html" rel="alternate" type="text/html" title="Process and Thread" /><published>2022-03-20T00:00:00+09:00</published><updated>2022-03-20T00:00:00+09:00</updated><id>http://localhost:4000/cs-study/Process%20and%20Thread</id><content type="html" xml:base="http://localhost:4000/cs-study/2022-03-20-Process-and-Thread.html"><![CDATA[<h1 id="프로세스와-쓰레드">프로세스와 쓰레드</h1>
+
+<p><em>면접 단골 질문인 프로세스와 쓰레드의 정의와 차이에 대한 포스트입니다.</em></p>
+
+<h3 id="프로세스란"><strong>프로세스란?</strong></h3>
+
+<blockquote>
+  <p>실제로 메모리가 할당되어 실행되고 있는 <strong>프로그램</strong>을 뜻한다.</p>
+</blockquote>
+
+<p><em><strong>프로그램</strong> : 개발자가 만든 코드뭉치들. 다르게 표현하면, 실행 시키기 전의 파일들.</em></p>
+
+<h3 id="쓰레드란"><strong>쓰레드란?</strong></h3>
+
+<blockquote>
+  <p>프로세스의 메모리를 할당받은 하나의 최소 실행 단위를 뜻한다.</p>
+</blockquote>
+
+<ul>
+  <li>즉, 쓰레드는 프로세스에 포함된다.</li>
+  <li>쓰레드는 프로세스의 자원 중 스택 영역을 제외한 코드, 데이터, 힙 영역을 같은 프로세스에서 생성된 쓰레드들과 공유할 수 있다.</li>
+</ul>
+
+<h3 id="쓰레드의-등장배경"><strong>쓰레드의 등장배경</strong></h3>
+
+<p>기술이 발전함에 따라 하나의 프로그램이 여러가지 기능을 하게 되는 것이 필요해졌다. 이를 해결하기 위해 멀티 프로세스 방식을 사용했었으나, 프로세스간 데이터 공유에는 많은 비용이 소모된다. 그래서 프로세스보다 하나 더 깊은 실행 단위가 필요했기 때문에 쓰레드가 등장하게 되었다.</p>
+
+<h3 id="가장-큰-차이점"><strong>가장 큰 차이점?</strong></h3>
+
+<p>둘 사이의 가장 큰 차이점은 <strong>자원의 할당과 공유</strong>이다.</p>
+
+<p>우선 자원의 할당 측면에서 바라보자면,<br />
+<strong>프로세스는 운영체제에 의해 메모리가 할당</strong>되어 진다. 그리고 <strong>쓰레드는 그 프로세스가 할당받은 메모리를 이용</strong>한다. 운영체제 입장에서 가장 작은 작업단위는 프로세스이기 때문에 쓰레드의 메모리에 대해 관여하지 않는다. 따라서 쓰레드의 메모리 관리와 스케줄링에 대해서 개발자가 직접적으로 관리해 주어야 한다.</p>
+
+<p>자원의 공유 측면에서는,<br />
+프로세스는 프로세스간 자원의 공유를 위해서 IPC, LPC와 같은 <strong>비용이 높은 작업이 요구</strong>된다. 또한 CPU와 메모리 사이의 캐시 초기화도 일어나기 때문에 Context Switching이 일어날 때마다 오버헤드가 많이 일어나게 된다.<br />
+반면에 쓰레드는 설계되어질 때부터 스택 영역을 제외한 프로세스의 모든 메모리 영역을 같은 프로세스에서 생성된 다른 쓰레드들과 공유할 수 있도록 설계되었다. 물론 <strong>공유에 드는 비용은 프로세스에 비해 훨씬 적고</strong> 오버헤드도 적을 뿐더러 속도 또한 빠르다. 하지만 여러 쓰레드가 자원을 공유하다보니 <strong>쓰레드 동기화</strong>에 대해 신경써 주어야 하고, <strong>하나의 쓰레드가 오류를 일으켜 다운 되었을 경우 다른 쓰레드들도 전부 정지</strong>한다는 단점이 존재한다.</p>]]></content><author><name>Hephai - Janghun Lee</name></author><category term="CS-Study" /><summary type="html"><![CDATA[프로세스와 쓰레드]]></summary></entry><entry><title type="html">검색 속도 향상을 위한 Elastic Search 도입</title><link href="http://localhost:4000/back-end-study/2021-06-28-Elastic-Search.html" rel="alternate" type="text/html" title="검색 속도 향상을 위한 Elastic Search 도입" /><published>2021-06-28T00:00:00+09:00</published><updated>2021-06-28T00:00:00+09:00</updated><id>http://localhost:4000/back-end-study/Elastic-Search</id><content type="html" xml:base="http://localhost:4000/back-end-study/2021-06-28-Elastic-Search.html"><![CDATA[<p><br />
 <br /></p>
 
 <h2 id="mq까지-도입했는데-특정-상황에서는-아직-서버가-죽네-ㅠㅠ">MQ까지 도입했는데… 특정 상황에서는 아직 서버가 죽네 ㅠㅠ</h2>
@@ -856,133 +892,4 @@ sudo tpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
 <p>어쩌면 졸업을 했기에 이렇게 경험을 할 수 있는 것 이었을지도.</p>
 
-<p>이것이 나에게 계획된 시간표이기 때문에 지금부터 전력을 다 하면 되는 것이다.</p>]]></content><author><name>Hephai - Janghun Lee</name></author><category term="Planning-And-Reviewing" /><summary type="html"><![CDATA[21년 3월 23일 스코페 2021 리뷰 - 나에게 “대회” 란 대학생 때의 나는 대회에 대해, “입상의 가능성이 있을 때 나가는 것.” 이라는 생각을 가지고 있었다. 항상 준비가 어느정도 되야 나가는 의미가 있다고 생각했다. 지금 생각하면 너무 아쉽고 왜 그렇게 생각하고 있었을까 하는 후회가 든다. 나도 믿기지 않는 사실이, 그동안 IT와 관련된 공모전, 대회, 콘테스트, 페스티벌 같은 활동에 관심도 없었고 참여도 하지 않았다는 것이다. 어쩌면 그때의 나는 전공이 컴공임에도 불구하고 코딩에 흥미를 못느끼고 있었던 것일지도 모른다. 하지만 이번 스코페를 통해 인식이 바뀌었다. 그동안 참가에 의의를 두고 출전해서 뿌듯함을 느낀 것으론 축구, 게임 밖에 없었는데 코딩에서도 그것을 느끼니 굉장히 오묘한, 끝난 후에도 아드레날린이 솟구치는 느낌이랄까. 새로운 시작을 열리는 경험이 되었다. 그래서 이제는 대회에 대해 “새로운 분야에 발을 들이기 위한 엔진.” 이라고 표현하고 싶다. - 소감? 재밌었다. 내 상황이 준비되지 않았음에도 불구하고. 대회를 마쳤음에도 마음에 불씨가 계속 피어올라 있었다. 주력 언어인 Java를 두고 코딩테스트를 위해 Python을 쓰자라고 결정하고, 3일동안 코드업 기초 100제와 모의테스트 문제만 풀고 출전하게 되었다. 3일동안 공부하며, 그리고 대회에서 코딩테스트를 진행하는 동안 Python의 능력에 감탄하고 하나씩 찾아 배워나가는 것이 제일 즐거웠다. 또한 오히려 유형에 대한 준비가 안되어있었기 때문에 한 문제 한 문제 풀어나갈 때마다 희열을 느꼈다. 하지만 많이 부족하다는 것도 동시에 느꼈다. 내가 나아가야할 길이 얼마나 남았는지 알 수 있었다. 조금 더 정확하게, 조금 더 간결하게, 조금 더 빠르게 더 많은 유형을 풀어보며 업그레이드 해야겠다고 생각했다. - 다음 계획 4월 2일에 프로그래머스에서 열리는 DevMatching이 있다. 이번에도 마음은 가볍게 가져갈 생각이지만, 준비만큼은 조금 더 확실하게 하려고 한다. 코딩테스트가 될 수도 있고, 과제테스트가 될 수도 있다고 하던데 어느 쪽이던지 우선 신청을 하고 소식을 받아보면서 준비해 나갈 계획이다. 어쩌면 졸업을 했기에 이렇게 경험을 할 수 있는 것 이었을지도. 이것이 나에게 계획된 시간표이기 때문에 지금부터 전력을 다 하면 되는 것이다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://res.cloudinary.com/danhdvla9/image/upload/v1616490266/Thumbnails/plan_and_review_knmqv5.jpg" /><media:content medium="image" url="https://res.cloudinary.com/danhdvla9/image/upload/v1616490266/Thumbnails/plan_and_review_knmqv5.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Cpu Stress Test -2</title><link href="http://localhost:4000/back-end-study/2021-03-15-Cpu-Stress-Test-2.html" rel="alternate" type="text/html" title="Cpu Stress Test -2" /><published>2021-03-15T00:00:00+09:00</published><updated>2021-03-15T00:00:00+09:00</updated><id>http://localhost:4000/back-end-study/Cpu-Stress-Test-2</id><content type="html" xml:base="http://localhost:4000/back-end-study/2021-03-15-Cpu-Stress-Test-2.html"><![CDATA[<p><br />
-<br /></p>
-
-<h4 id="목차">목차</h4>
-
-<p><br />
-<br /></p>
-<ul>
-	<li>Artillery 설치</li>
-	<li>Artillery를 사용해서 CPU Stress Test</li>
-</ul>
-<p><br />
-<br /></p>
-
-<hr />
-
-<p><br />
-<br /></p>
-
-<h4 id="artillery-설치">Artillery 설치</h4>
-
-<p><br />
-<br /></p>
-
-<p>오늘은 Artillery를 사용해서 우리가 만든 웹서버가 얼마나 많은 트래픽을 소화해낼 수 있는지 테스트해보았다.</p>
-
-<p>내가 수많은 테스트 툴 중에서 Artillery를 선택한 이유는 다음 두 가지이다.</p>
-
-<ul>
-  <li>Http, websocket 프로토콜 지원</li>
-  <li>시각화가 잘 되어 있어 한눈에 보기 편한 리포트 페이지 제공</li>
-</ul>
-
-<p>특히 리포트 페이지는 처음 열어보았을 때 너무 깔끔해서 놀랐을 정도.</p>
-
-<p><a href="https://artillery.io/docs/guides/overview/why-artillery.html">더 자세한 Artillery에 대한 정보</a></p>
-
-<p>구글 번역을 이용할 경우 artillery가 “포병”으로 해석되서 나오니 주의.</p>
-
-<p><br /></p>
-
-<ol>
-  <li>node.js , npm 설치</li>
-</ol>
-
-<p>Artillery를 설치하기 위해서는 node.js와 npm이 필수이다. 각각 아래의 명령어를 입력해서 설치.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	sudo apt install npm
-	sudo apt install nodejs
-</code></pre></div></div>
-
-<ol>
-  <li>Artillery 설치</li>
-</ol>
-
-<p>다음으로 <a href="https://artillery.io/docs/guides/getting-started/installing-artillery.html">Artillery 공식 문서</a> 를 참조하여 Artillery를 설치하자.</p>
-
-<p>공식 문서에서는 -g (전역 설치) 옵션과 함께 1.6 버전을 설치하지만 나는 조금 다르게 설치하였다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	sudo npm install -D artillery@latest
-</code></pre></div></div>
-
-<p>프로세스가 끝나면 설치가 완료되었는지 artillery dino 명령을 사용해서 확인하였다.</p>
-
-<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614778/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-03-01_nyfkpd.png" alt="귀여운 공룡" /></p>
-
-<p><br />
-<br /></p>
-
-<h4 id="artillery를-사용해서-cpu-stress-test">Artillery를 사용해서 CPU Stress Test</h4>
-
-<p><br />
-<br /></p>
-
-<p>지금부터는 Artillery를 본격적으로 사용하기 위해 VSCode를 사용하였다.</p>
-
-<p>우선 open folder로 artillery 관련 산출물을 관리하기 위한 디렉토리를 하나 생성.</p>
-
-<p>new file로 어떻게 테스트를 진행할지 구성하는 artillery-cpu-test.yaml 파일을 생성.</p>
-
-<p>다음으로 <a href="https://artillery.io/docs/guides/getting-started/installing-artillery.html">Artillery 공식 문서</a> 에서 core-concept 탭에 가서 맨 아래있는 기본 yaml 템플릿을 전부 복사 후 artillery-cpu-test.yaml에 붙여넣기 하고, 약간의 수정을 거쳤다.</p>
-
-<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614780/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-25-53_plikpn.png" alt="yaml 파일" /></p>
-
-<p>수정 한 이유는 hash/{input} api를 통해 get 명령만 사용할 것 이므로 나머지는 전부 날렸다. (물론 중요한 두 부분은 빼고)</p>
-
-<ul>
-  <li>address : 웹 서버 주소 (클라우드 외부 IP)</li>
-  <li>durability : 지속시간</li>
-  <li>?? : 지속시간동안 1초마다 트래픽 증가 수치</li>
-</ul>
-
-<p>준비가 끝났으니 웹 서버를 켜주고, 아래 명령을 입력하여 테스트를 시작하자.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	artillery run --output report.json artillery-cpu-test.yaml
-</code></pre></div></div>
-
-<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614781/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-18_u0r4ft.png" alt="테스트 중..." /></p>
-
-<p>테스트가 끝나고나면 왼쪽에 지정해준 이름대로 json 파일이 생성된다. 나는 report.json으로 했으니 테스트가 잘 끝났음을 보여준다.</p>
-
-<p>하지만 json 파일 만으로는 테스트가 어땠는지 파악하기 어려우니 아래 명령어를 입력해서 리포트 페이지를 열었다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	artillery report report.json
-</code></pre></div></div>
-
-<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614782/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-27-55_hpzhuh.png" alt="리포트페이지" /></p>
-
-<p>이와같이 깔끔하게 테스트 결과를 시각화해준다. 보아하니 서버가 그냥저냥 거뜬히 견딜 정도의 트래픽이었나보다.</p>
-
-<p>여기서 특히 P95의 수치에 집중하였다. 서버의 비용과 유저의 만족도 간 최고의 효율을 낼 수 있는 비율이 95%라고 한다.</p>
-
-<p>다음은 서버가 적당히 스트레스를 받을 정도의 부하를 줘 보자. 트래픽을 초당 15로 수정 후 report-15.json으로 다시 진행하였다.</p>
-
-<p><img src="https://res.cloudinary.com/danhdvla9/image/upload/v1615614783/ScreenShots/21-03-13/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-03-13_14-36-32_qc0cfs.png" alt="리포트페이지-15" /></p>
-
-<p>900 정도의 트래픽이 몰리니 에러도 나오고 지연 시간이 꽤 오래 걸리기 시작했다. 거의 마지막에는 1만 ms 를 넘겼는데 이는 대충 10초가 지나야 응답이 온다는 뜻이다. 내 입장에선 10 초 정도면 나름 견딜만 한 시간인데 전체 유저 입장에서 보면 적당한 것 일까 하는 의문이 든다.</p>
-
-<p>비용이 많다면 유저를 만족시키는 정확한 성능을 찾는 것이 중요하겠지만, 비용이 제한된 상황에서라면 어떤 지침을 따르는 것이 맞을지 찾아보았는데 다음 세 가지를 만족하는 방향을 찾으면 된다고 한다.</p>
-
-<ul>
-  <li>예상 TPS보다 여유롭게. 예상 3000이라면 적어도 4000이상</li>
-  <li>기대 Latency를 만족할 때 까지</li>
-  <li>Scale-out을 해도 성능이 높아지지 않는다면 병목을 의심</li>
-</ul>
-
-<p><br />
-<br /></p>
-
-<p>이상으로 CPU Stress Test 포스팅을 마무리한다. 처음해본 배포, 처음해본 부하 테스트 였는데 작지만 내가 만든 애플리케이션이 클라우드를 통해 배포되고, 많은 트래픽이 오는 상황을 예측해볼 수 있다니 두근거리는 경험이었다. 후에 이 경험을 살려 실제로 내가 회사나 개인 프로젝트를 띄워서 관리 중일 때 얼마나 많은 트래픽을 견뎌낼 수 있을지 테스트할 수 있을 것 같다.</p>]]></content><author><name>Hephai - Janghun Lee</name></author><category term="Back-End-Study" /><summary type="html"><![CDATA[]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://res.cloudinary.com/danhdvla9/image/upload/v1615614663/Thumbnails/cpu_cieppp.jpg" /><media:content medium="image" url="https://res.cloudinary.com/danhdvla9/image/upload/v1615614663/Thumbnails/cpu_cieppp.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>이것이 나에게 계획된 시간표이기 때문에 지금부터 전력을 다 하면 되는 것이다.</p>]]></content><author><name>Hephai - Janghun Lee</name></author><category term="Planning-And-Reviewing" /><summary type="html"><![CDATA[21년 3월 23일 스코페 2021 리뷰 - 나에게 “대회” 란 대학생 때의 나는 대회에 대해, “입상의 가능성이 있을 때 나가는 것.” 이라는 생각을 가지고 있었다. 항상 준비가 어느정도 되야 나가는 의미가 있다고 생각했다. 지금 생각하면 너무 아쉽고 왜 그렇게 생각하고 있었을까 하는 후회가 든다. 나도 믿기지 않는 사실이, 그동안 IT와 관련된 공모전, 대회, 콘테스트, 페스티벌 같은 활동에 관심도 없었고 참여도 하지 않았다는 것이다. 어쩌면 그때의 나는 전공이 컴공임에도 불구하고 코딩에 흥미를 못느끼고 있었던 것일지도 모른다. 하지만 이번 스코페를 통해 인식이 바뀌었다. 그동안 참가에 의의를 두고 출전해서 뿌듯함을 느낀 것으론 축구, 게임 밖에 없었는데 코딩에서도 그것을 느끼니 굉장히 오묘한, 끝난 후에도 아드레날린이 솟구치는 느낌이랄까. 새로운 시작을 열리는 경험이 되었다. 그래서 이제는 대회에 대해 “새로운 분야에 발을 들이기 위한 엔진.” 이라고 표현하고 싶다. - 소감? 재밌었다. 내 상황이 준비되지 않았음에도 불구하고. 대회를 마쳤음에도 마음에 불씨가 계속 피어올라 있었다. 주력 언어인 Java를 두고 코딩테스트를 위해 Python을 쓰자라고 결정하고, 3일동안 코드업 기초 100제와 모의테스트 문제만 풀고 출전하게 되었다. 3일동안 공부하며, 그리고 대회에서 코딩테스트를 진행하는 동안 Python의 능력에 감탄하고 하나씩 찾아 배워나가는 것이 제일 즐거웠다. 또한 오히려 유형에 대한 준비가 안되어있었기 때문에 한 문제 한 문제 풀어나갈 때마다 희열을 느꼈다. 하지만 많이 부족하다는 것도 동시에 느꼈다. 내가 나아가야할 길이 얼마나 남았는지 알 수 있었다. 조금 더 정확하게, 조금 더 간결하게, 조금 더 빠르게 더 많은 유형을 풀어보며 업그레이드 해야겠다고 생각했다. - 다음 계획 4월 2일에 프로그래머스에서 열리는 DevMatching이 있다. 이번에도 마음은 가볍게 가져갈 생각이지만, 준비만큼은 조금 더 확실하게 하려고 한다. 코딩테스트가 될 수도 있고, 과제테스트가 될 수도 있다고 하던데 어느 쪽이던지 우선 신청을 하고 소식을 받아보면서 준비해 나갈 계획이다. 어쩌면 졸업을 했기에 이렇게 경험을 할 수 있는 것 이었을지도. 이것이 나에게 계획된 시간표이기 때문에 지금부터 전력을 다 하면 되는 것이다.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://res.cloudinary.com/danhdvla9/image/upload/v1616490266/Thumbnails/plan_and_review_knmqv5.jpg" /><media:content medium="image" url="https://res.cloudinary.com/danhdvla9/image/upload/v1616490266/Thumbnails/plan_and_review_knmqv5.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
